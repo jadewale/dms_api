@@ -15,8 +15,8 @@
           {error: err.message || err.errors[0].message});
       }
 
-      function send201Code(res, data) {
-        responsehelper.response(res, 201, data);
+      function sendOkResponse(res, num, data) {
+        responsehelper.response(res, num, data);
       }
 
       function send409Manual(res) {
@@ -28,13 +28,13 @@
         if(err) {
           send409Error(res, err);
         }
-        if(role) {
+        if(role.length) {
           var addUser = new Users(validateUser
             .parseCreateData(req, bcrypt, salt));
           saveUser(addUser, res);
         }
         else{
-          send409Manual(res);
+          responsehelper.response(res, 409, {'error': 'undefined role'});
         }
       }
 
@@ -49,8 +49,8 @@
           send409Error(res, err);
         }
         if(user) {
-          var object = {'token': getToken(user), 'message':'user created'};
-          send201Code(res, object);
+          sendOkResponse(res, 201, {'token': getToken(user),
+            'message':'user created'});
         }
       }
 
@@ -69,58 +69,34 @@
       };
 
       var logIn = function (req, res) {
-        if(validateUser.validLogInData(req)){
+        validateUser.validLogInData(req) ?
           getUser(req, res, validateUser.parseLogInData(req,
-            bcrypt, salt));
-        }
-        else{
-          res.status(409).json({
-             error: 'All details Required' ||
-              'Check manual for required params'
-          });
-        }
-
+            bcrypt, salt)) :  send409Manual(res);
       };
 
+      function checkUser(err, user, req, res) {
+        if(err) {
+          send409Error(res, err);
+        }
+        user ? sendOkResponse(res, 200, {'token': getToken(user),
+          'data': user}) :
+        sendOkResponse(res, 200, {'data' : 'Invalid username or password'});
+      }
+
       var getUser = function (req, res, data) {
-        if(data.username === undefined){
+        if(!data.username){
           data = {'username' : req.params.id};
         }
-        Users.findOne(data, function(err, user) {
-          if (err) {
-            res.status(409).json({
-               error: 'All details Required' ||
-              'Check manual for required params'
-            });
-          }
-          if (!user){
-            res.json({'data' : 'Invalid username or password'});
-          }
-          else{
-            var token = jwt.sign(user, app.get('superSecret'), {
-              expiresIn : 60*60*24
-            });
-
-            res.json({'data' : user, 'token' : token});
-          }
+        Users.findOne(data, function (err, user) {
+          checkUser(err, user, req, res);
         });
       };
 
       var getAllUsers = function (req, res) {
         Users.find(function(err,users) {
-          if (err) {
-            res.status(409).json({
-               error: 'All details Required' ||
-              'Check manual for required params'
-            });
-          }
-          else {
-            res.json(users);
-          }
+          (err) ? send409Manual(res): sendOkResponse(res, 200, users);
         });
-
       };
-
 
       var updateUser = function (req, res) {
         if(validateUser.validUpdateData(req)){
