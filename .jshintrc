@@ -73,7 +73,10 @@
     "predef": [
       "it",
       "expect",
-      "describe"
+      "describe",
+      "process",
+      "require",
+      "module"
     ],
     "globals": {
 
