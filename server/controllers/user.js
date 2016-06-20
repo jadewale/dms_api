@@ -60,7 +60,7 @@
         });
       };
 
-      var logOut = function () {
+      var logOut = function (req, res) {
         console.log('logout user');
 
       };
