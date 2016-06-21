@@ -1,0 +1,11 @@
+{
+"id" : {"type": "Number", "ref": "Id"},
+"username" : {"type" : "String", "unique" : true},
+"name" : {
+  "first" : {"type" : "String", "required" : true},
+  "last" : {"type" : "String", "required" : true}
+},
+"email" : {"type" : "String", "unique" : true},
+"password" : {"type" : "String", "required" : true},
+"role" : {"type" : "String", "required" : true}
+}

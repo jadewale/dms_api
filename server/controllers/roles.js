@@ -44,7 +44,6 @@
           }
         });
       };
-      app.set('Roles', getRole);
 
 
     var getRoles = function (req, res) {
@@ -59,7 +58,6 @@
             res(roles);
             return '';
           }
-
           res.status(200).json({
             role : roles
           });

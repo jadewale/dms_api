@@ -16,7 +16,7 @@
           addDoc.save(function(err, doc) {
             (err) ? docHelp.send409Error(res, err):
               docHelp.sendOkResponse(res, 201,
-                {'data': doc, 'status': 'document saved'});
+                {'document': doc, 'status': 'document saved'});
           });
       }
       else{
@@ -51,7 +51,7 @@
 
     var updateRole = function (req, res) {
       req.body.role.forEach(function(roles, index) {
-        docHelp.updateRoles(Roles, roles, res, req, Documents, index);
+        helper.updateRoles(Roles, roles, res, req, Documents, index);
       });
     };
 
