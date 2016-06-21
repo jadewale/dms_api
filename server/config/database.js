@@ -40,7 +40,7 @@
 
     module.exports = {
      'connection': mongoose,
-     'auto_increment': autoIncrement
+     'autoIncrement': autoIncrement
     };
 
 })();
