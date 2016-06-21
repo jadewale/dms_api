@@ -3,6 +3,14 @@ module.exports = function () {
   var seeder = require('mongoose-seed'),
     config = require('../config/index');
   var uri = config.url + config.dbPort + '/' + config.dbName;
+  console.log('test');
+
+  var roles = ['Administrator', 'User', 'Guest',];
+  var user = [{'username': 'Joliphizzle', 'password': 'Jolaade',
+   'firstName': 'Jolaade', 'lastName':'Adewale',
+   'email':'jbadewale@yahoo.com', 'role':'Guest'}];
+
+   var documents = [];
 
   seeder.connect(uri, function () {
     seeder.loadModels([
