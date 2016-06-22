@@ -27,17 +27,20 @@
     var getDocument = function (req, res) {
       Documents.findOne({_id: req.params.id},
         function(err, documents) {
-          (err) ? docHelp.send409Manual(res):
-          docHelp.sendOkResponse(res, 200, {'data': documents});
+          sendResponse(err, documents, res);
       });
     };
+
+    function sendResponse(err, documents, res) {
+       (err) ? docHelp.send409Manual(res):
+          docHelp.sendOkResponse(res, 200, {'data': documents});
+    }
 
     var getAllDocuments = function (req, res) {
       Documents.find(validateDocs.getQueryDocs(req),
         validateDocs.getLimit(req),
         function(err, documents) {
-          (err) ? docHelp.send409Manual(res):
-          docHelp.sendOkResponse(res, 200, {'data': documents});
+          sendResponse(err, documents, res);
       });
     };
 
