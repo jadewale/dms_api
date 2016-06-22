@@ -62,7 +62,7 @@ describe('documents', function() {
     .end(function(err, res){
       res.should.have.status(200);
       res.should.be.json;
-      console.log(res);
+     // console.log(res);
       //res.body.success.access.should.equal(['Administrator','Guest']);
       done();
     });

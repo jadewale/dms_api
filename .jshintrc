@@ -76,7 +76,8 @@
       "describe",
       "process",
       "require",
-      "module"
+      "module",
+      "faker"
     ],
     "globals": {
 

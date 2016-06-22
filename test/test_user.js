@@ -3,13 +3,25 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var server = require('../server');
 var should = chai.should();
+var faker =  require('faker');
 var token1 = '';
 var token2 = '';
+
+var nameObj = {
+  username: faker.internet.userName(),
+  password: faker.internet.password(),
+  firstname: faker.name.firstName(),
+  lastname: faker.name.lastName(),
+  email: faker.internet.email(),
+  role: 'Administrator'
+};
+
 
 chai.use(chaiHttp);
 
 describe('users', function() {
   it('should create a new user on /users POST', function(done) {
+
   chai.request(server)
     .post('/users/')
     .send({'username':'Tope', 'password':'Tope',
@@ -23,6 +35,8 @@ describe('users', function() {
       res.body.should.have.property('token');
       token1 = res.body.token;
       res.body.message.should.equal('user created');
+
+      console.log(Faker.name.firstName());
       done();
     });
 });

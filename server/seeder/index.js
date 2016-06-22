@@ -1,26 +1,37 @@
-module.exports = function () {
-  'use strict';
-  var seeder = require('mongoose-seed'),
-    config = require('../config/index');
-  var uri = config.url + config.dbPort + '/' + config.dbName;
-  console.log('test');
 
-  var roles = ['Administrator', 'User', 'Guest',];
-  var user = [{'username': 'Joliphizzle', 'password': 'Jolaade',
-   'firstName': 'Jolaade', 'lastName':'Adewale',
-   'email':'jbadewale@yahoo.com', 'role':'Guest'}];
+(function () {
+ 'use strict';
+ var db = require('mongoose'),
+   model = require('../model/role_model.json'),
+   object = [{'title': 'Administrator', 'id' : 1},
+   {'title': 'Guest', 'id' : 2},
+   {'title': 'User', 'id' : 3}];
 
-   var documents = [];
-
-  seeder.connect(uri, function () {
-    seeder.loadModels([
-      '../model/documents_model.json', '../model/role_model.json',
-      '../model/user_model.json']);
-
-    seeder.clearModels('model1','model2,model3', function () {
-
+   var options = {
+      server : { poolSize : 5, reconnectTries : 5},
+      user : 'USER',
+      pass : ''
+    };
+   var uri = 'mongodb://localhost:27017/DocumentManagementSystem';
+    db.connect(uri,options);
+    db.connection.on('connected', function () {
+      console.log('Default connection open');
     });
+    var Schema = db.Schema;
+    var Roles = db.model('Role', new Schema(model));
 
-  });
+   Roles.remove({}, function (err, role) {
+    if(err) {
+      console.log(err);
+    }
+   });
+   object.forEach(function (obj) {
+     var addRole = new Roles(obj);
+     addRole.save(function (err, role) {
+       err ? console.log(err) : console.log('saved');
+     });
+   });
 
-};
+   process.exit(0);
+
+}());
