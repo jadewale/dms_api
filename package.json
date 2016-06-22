@@ -24,6 +24,7 @@
     "dotenv": "^2.0.0",
     "express": "latest",
     "jsonwebtoken": "^7.0.1",
+    "mocha": "^2.5.3",
     "mongoose": "^4.4.20",
     "mongoose-auto-increment": "^5.0.1",
     "mongoose-seed": "^0.1.5"
