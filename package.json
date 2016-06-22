@@ -21,6 +21,7 @@
   "dependencies": {
     "bcrypt": "^0.8.7",
     "body-parser": "^1.15.1",
+    "chai": "^3.5.0",
     "dotenv": "^2.0.0",
     "express": "latest",
     "istanbul": "^0.4.4",
