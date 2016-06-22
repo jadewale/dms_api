@@ -24,6 +24,7 @@
     "chai": "^3.5.0",
     "dotenv": "^2.0.0",
     "express": "latest",
+    "faker": "^3.1.0",
     "istanbul": "^0.4.4",
     "jsonwebtoken": "^7.0.1",
     "mocha": "^2.5.3",
