@@ -14,16 +14,13 @@
       if(validateRole.validRoleCreation(req)){
         var addRole = new Roles(validateRole.parseData(req));
           addRole.save(function(err, role) {
-            if (err) {
+            err ?
               responsehelper.response(res, 409, {
                 error: err.message || err.errors[0].message
-              });
-            }
-            else{
+              }):
               responsehelper.response(res, 201, {
                 status: role
               });
-            }
           });
       }
       else{
@@ -35,23 +32,18 @@
 
     var getRoles = function (req, res) {
       Roles.find(function (err, roles) {
-        if (err){
-          res.status(500).json({
-          error: err.message || err.errors[0].message
+        if (err) {
+          responsehelper.response(res, 500, {
+            error: err.message || err.errors[0].message
           });
         }
         else{
-          if(req === null){
-            res(roles);
-            return '';
-          }
           res.status(200).json({
             role : roles
           });
         }
       });
     };
-
 
     return {
       createRole : createRole,
