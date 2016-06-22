@@ -94,7 +94,7 @@ module.exports = (function () {
         'username': req.body.username,
         'name': {
           'first': req.body.firstName,
-          'last': req.body.lastName,
+          'last': req.body.lastName
         },
         'email': req.body.email,
         'password': bcrypt.hashSync(req.body.password, salt),
