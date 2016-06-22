@@ -11,7 +11,8 @@
   "author": "Jolaade",
   "scripts": {
     "start": "node server.js",
-    "test": "mocha"
+    "test": "mocha",
+    "coverage": "codeclimate-test-reporter < coverage/lcov.info"
   },
   "email": "jolaade.adewale@andela.com",
   "contributors": [
