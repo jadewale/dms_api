@@ -33,7 +33,7 @@
     "esversion": 6,
     "moz": false,
     "evil": false,
-    "expr": false,
+    "expr": true,
     "funcscope": true,
     "globalstrict": false,
     "iterator": false,
