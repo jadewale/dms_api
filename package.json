@@ -29,7 +29,8 @@
     "mocha": "^2.5.3",
     "mongoose": "^4.4.20",
     "mongoose-auto-increment": "^5.0.1",
-    "mongoose-seed": "^0.1.5"
+    "mongoose-seed": "^0.1.5",
+    "node-gyp": "^3.3.1"
   },
   "devDependencies": {
     "chai": "^3.2.0",
