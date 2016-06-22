@@ -19,10 +19,10 @@
     "jolaade"
   ],
   "dependencies": {
-    "bcrypt": "^0.8.3",
+    "bcrypt": "^0.8.7",
     "body-parser": "^1.15.1",
     "dotenv": "^2.0.0",
-    "express": "^4.12.4",
+    "express": "latest",
     "istanbul": "^0.4.4",
     "jsonwebtoken": "^7.0.1",
     "mocha": "^2.5.3",
