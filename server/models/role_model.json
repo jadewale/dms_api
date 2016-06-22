@@ -1,4 +1,0 @@
-{
-"id" : {"type": "Number", "ref": "Id"},
-"title": {"type" : "String", "unique" : true}
-}
