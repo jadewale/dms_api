@@ -10,7 +10,8 @@
   ],
   "author": "Jolaade",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "mocha"
   },
   "email": "jolaade.adewale@andela.com",
   "contributors": [
