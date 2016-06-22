@@ -11,7 +11,7 @@ var config = require('./server/config'),
     http = require('http'),
     jwt    = require('jsonwebtoken'),
     bodyParser = require('body-parser'),
-    bcrypt = require('bcrypt'),
+    bcrypt = require('bcrypt-nodejs'),
     app = express();
 
 app.set('superSecret', config.secretToken);
