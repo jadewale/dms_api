@@ -1,7 +1,7 @@
 'use strict';
 var env = process.env.NODE_ENV || 'development';
 if (env === 'development') {
-  require('dotenv').config({silent: true}).load();
+  require('dotenv').config({silent: true});
 }
 var config = require('./server/config'),
     express = require('express'),
