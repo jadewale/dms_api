@@ -58,7 +58,9 @@ module.exports = (function (){
 
   var getQueryDocs = function (req) {
     if(req.query.date){
-      return {'createdAt': req.query.date};
+      var date = new Date(req.query.date);
+      return {'createdAt': {'$gte': req.query.date, '$lt':
+       date.setDate(date.getDate() + 1)}};
     }
     if(req.query.role) {
       return {'access' : req.query.role};
@@ -66,7 +68,6 @@ module.exports = (function (){
     else{
       return {};
     }
-
   };
 
   var getLimit = function (req) {
