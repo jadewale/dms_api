@@ -55,8 +55,7 @@ describe('roles', function() {
       res.body.role[0].title.should.equal('Administrator');
       res.body.role[1].title.should.equal('User');
       res.body.role[2].title.should.equal('Guest');
-      res.body.role[3].title.should.equal('Super_Guest');
-      res.body.role[4].title.should.equal('Test');
+      res.body.role[3].title.should.equal('Test');
       done();
     });
     });
