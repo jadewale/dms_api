@@ -23,13 +23,13 @@
     var Schema = db.Schema;
     var Roles = db.model('Role', new Schema(role));
     var User = db.model('User', new Schema(user));
-    var Doc = db.model('Documents', new Schema(doc));
+    var Documents = db.model('Documents', new Schema(doc));
 
    Roles.remove({}, function (err, role) {
    });
    User.remove({}, function (err, role) {
    });
-   Doc.remove({}, function (err, role) {
+   Documents.remove({}, function (err, role) {
    });
    object.forEach(function (obj, index) {
 

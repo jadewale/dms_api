@@ -56,13 +56,12 @@
         Users.findOneAndRemove({username : req.params.id},
           function(err, user) {
             (err) ? helper.send409Error(res, err): helper.sendOkResponse(res,
-              200,{data: user + ' removed'});
+              200,{deleted: user + ' removed'});
         });
       };
 
       var logOut = function (req, res) {
-        console.log('logout user');
-
+        helper.sendOkResponse(res, 200, {'message': 'user logged out'});
       };
 
       return {

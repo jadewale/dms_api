@@ -40,5 +40,5 @@ module.exports = function(app, Schema, db, jwt, bcrypt) {
   app.route('/users/:id')
     .get(Users.getUser)
     .put(Users.updateUser)
-    .delete(Users.updateUser);
+    .delete(Users.deleteUser);
 };

@@ -8,7 +8,7 @@
       Roles = app.get('roleModel'),
       docHelp = require('../services/users_helper'),
       helper = require('../services/documents_helper'),
-      Documents = db.connection.model('Document',docSchema);
+      Documents = db.connection.model('Documents',docSchema);
 
     var createDoc = function (req, res) {
       if(validateDocs.validDocCreation(req)) {
