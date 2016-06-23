@@ -11,12 +11,12 @@
       Users = db.connection.model('User',userSchema);
 
       var createUser = function (req, res) {
-        if(validateUser.validUserCreation(req)){
+        validateUser.validUserCreation(req) ?
            Roles.find({'title' : req.body.role},
             function(err, role){
               helper.check(err, role, req, res, jwt, Users, bcrypt, salt, app);
-           });
-        }
+           })
+        : res.status(409).json({error: 'check manual for required params'});
       };
 
       var logIn = function (req, res) {
