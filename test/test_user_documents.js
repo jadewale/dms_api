@@ -479,7 +479,7 @@ it('should return all documents belonging to a user', function(done) {
     .end(function(err, res){
       res.should.have.status(200);
       res.should.be.json;
-      console.log(res.body);
+      //console.log(res.body);
       //console.log('test');
      // console.log(res);
       done();

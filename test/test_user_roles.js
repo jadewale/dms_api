@@ -26,6 +26,27 @@ describe('roles', function() {
     });
   });
 });
+
+  it('should fail because role has numbers', function(done) {
+     chai.request(server)
+    .post('/users/login')
+    .send({'username':'Joliphizzle', 'password':'Jolaade'})
+    .end(function(err, res){
+    chai.request(server)
+    .post('/roles/')
+    .send({'title':'12344', 'token' : res.body.token})
+    .end(function(err, res){
+      res.should.have.status(409);
+      res.should.be.json;
+      res.body.should.be.a('object');
+      res.body.should.have.property('error');
+      res.body.error.should.equal('check manual for required params');
+      done();
+    });
+  });
+});
+
+
   it('should fail because role has been created', function (done) {
     chai.request(server)
     .post('/users/login')
