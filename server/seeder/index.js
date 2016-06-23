@@ -4,8 +4,8 @@
  var db = require('mongoose'),
    model = require('../model/role_model.json'),
    object = [{'title': 'Administrator', 'id' : 1},
-   {'title': 'Guest', 'id' : 2},
-   {'title': 'User', 'id' : 3}];
+   {'title': 'User', 'id' : 2},
+   {'title': 'Guest', 'id' : 3}];
 
    var options = {
       server : { poolSize : 5, reconnectTries : 5},

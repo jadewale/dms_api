@@ -36,7 +36,7 @@ describe('users', function() {
       token1 = res.body.token;
       res.body.message.should.equal('user created');
 
-      console.log(Faker.name.firstName());
+      //console.log(faker.name.firstName());
       done();
     });
 });
