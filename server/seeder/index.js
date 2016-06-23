@@ -21,17 +21,18 @@
     var Roles = db.model('Role', new Schema(model));
 
    Roles.remove({}, function (err, role) {
-    if(err) {
-      console.log(err);
-    }
+    if(err)
+    console.log(err);
    });
-   object.forEach(function (obj) {
+   object.forEach(function (obj, index) {
+
      var addRole = new Roles(obj);
      addRole.save(function (err, role) {
-       err ? console.log(err) : console.log('saved');
+       err ? console.log(err) : (index === 2) ? process.exit(0): false;
      });
+
    });
 
-   process.exit(0);
+
 
 }());
