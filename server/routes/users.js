@@ -41,4 +41,7 @@ module.exports = function(app, Schema, db, jwt, bcrypt) {
     .get(Users.getUser)
     .put(Users.updateUser)
     .delete(Users.deleteUser);
+
+
+
 };

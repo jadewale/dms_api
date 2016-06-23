@@ -37,10 +37,12 @@
     }
 
     var getAllDocuments = function (req, res) {
-      Documents.find(validateDocs.getQueryDocs(req),
-        validateDocs.getLimit(req),
-        function(err, documents) {
-          sendResponse(err, documents, res);
+      Documents.find(validateDocs.getQueryDocs(req))
+      .sort({'createdAt': -1})
+      .skip(validateDocs.getSkip(req))
+      .limit(validateDocs.getLimit(req))
+      .exec(function(err, documents){
+        sendResponse(err, documents, res);
       });
     };
 

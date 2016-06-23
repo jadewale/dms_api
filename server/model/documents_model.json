@@ -1,6 +1,6 @@
 {
 "id" : {"type": "Number", "ref": "Id"},
-"ownerId": {"type" : "String", "required" : true},
+"ownerId": {"type" : "Number", "required" : true},
 "title": {"type" : "String", "unique" : true},
 "content": {"type" : "String", "required" : true},
 "createdAt": {"type" : "Date"},

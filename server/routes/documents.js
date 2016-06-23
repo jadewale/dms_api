@@ -20,7 +20,7 @@ module.exports = function(app, Schema, db, jwt) {
   app.use('/documents/', auth.apiRoutes);
 
   //gets user documents
-  app.route('/users/:id/documents')
+  app.route('/users/:id/documents/')
     .get(Documents.getUserDocument);
 
   //gets and creates documents
