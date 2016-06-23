@@ -52,7 +52,6 @@ describe('roles', function() {
     .end(function(err, res) {
       res.should.have.status(200);
       res.should.be.json;
-      console.log(res.body.role);
       res.body.role[0].title.should.equal('Administrator');
       res.body.role[1].title.should.equal('User');
       res.body.role[2].title.should.equal('Guest');
