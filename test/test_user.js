@@ -92,6 +92,7 @@ it('should reject new user because of invalid data /users POST',
       done();
     });
  });
+
  it('should fail because visitor role is not defined on /users POST', function (done) {
     chai.request(server)
     .post('/users/')
@@ -235,7 +236,7 @@ it('should update a user /users/:id/ ', function(done) {
   });
   });
 
-it('should fil because you updated role /users/:id/ ', function(done) {
+it('should fail because you updated role /users/:id/ ', function(done) {
      chai.request(server)
     .post('/users/login/')
     .send({'username':'Best', 'password':'Test'})
@@ -253,6 +254,64 @@ it('should fil because you updated role /users/:id/ ', function(done) {
     });
   });
   });
+
+it('should fail because password is numbers /users/:id/ ', function(done) {
+     chai.request(server)
+    .post('/users/login/')
+    .send({'username':'Best', 'password':'Test'})
+    .end(function(err, res){
+    chai.request(server)
+    .put('/users/'+res.body.data.username+'/?token='+res.body.token+
+      '&password='+'849493939')
+    .end(function(err, res) {
+        res.should.have.status(409);
+      res.should.be.json;
+      res.body.should.be.a('object');
+      res.body.should.have.property('error');
+      res.body.error.should.equal('check manual for required params');
+      done();
+    });
+  });
+  });
+
+it('should fail because firstname is numbers /users/:id/ ', function(done) {
+     chai.request(server)
+    .post('/users/login/')
+    .send({'username':'Best', 'password':'Test'})
+    .end(function(err, res){
+    chai.request(server)
+    .put('/users/'+res.body.data.username+'/?token='+res.body.token+
+      '&firstName='+'849493939')
+    .end(function(err, res) {
+        res.should.have.status(409);
+      res.should.be.json;
+      res.body.should.be.a('object');
+      res.body.should.have.property('error');
+      res.body.error.should.equal('check manual for required params');
+      done();
+    });
+  });
+  });
+
+it('should fail because lastname is empty /users/:id/ ', function(done) {
+     chai.request(server)
+    .post('/users/login/')
+    .send({'username':'Best', 'password':'Test'})
+    .end(function(err, res){
+    chai.request(server)
+    .put('/users/'+res.body.data.username+'/?token='+res.body.token+
+      '&lastName='+'  ')
+    .end(function(err, res) {
+        res.should.have.status(409);
+      res.should.be.json;
+      res.body.should.be.a('object');
+      res.body.should.have.property('error');
+      res.body.error.should.equal('check manual for required params');
+      done();
+    });
+  });
+  });
+
 
 it('should fail on update due to invalid email a user /users/:id/ ',
  function(done) {
