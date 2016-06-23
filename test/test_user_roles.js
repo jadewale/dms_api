@@ -46,12 +46,13 @@ describe('roles', function() {
     chai.request(server)
     .post('/users/login')
     .send({'username':'Tope', 'password':'Tope'})
-    .end(function(err, res){
+    .end(function(err, res) {
     chai.request(server)
     .get('/roles/?token='+res.body.token)
-    .end(function(err, res){
+    .end(function(err, res) {
       res.should.have.status(200);
       res.should.be.json;
+      console.log(res.body.role);
       res.body.role[0].title.should.equal('Administrator');
       res.body.role[1].title.should.equal('User');
       res.body.role[2].title.should.equal('Guest');
