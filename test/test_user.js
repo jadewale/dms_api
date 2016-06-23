@@ -225,7 +225,6 @@ it('should update a user /users/:id/ ', function(done) {
     .put('/users/'+res.body.data.username+'/?token='+res.body.token+
       '&newusername=Best')
     .end(function(err, res) {
-      console.log(res.body);
       res.should.have.status(200);
       res.should.be.json;
       res.body.should.be.a('object');
@@ -239,13 +238,13 @@ it('should update a user /users/:id/ ', function(done) {
 it('should fil because you updated role /users/:id/ ', function(done) {
      chai.request(server)
     .post('/users/login/')
-    .send({'username':'Test', 'password':'Test'})
+    .send({'username':'Best', 'password':'Test'})
     .end(function(err, res){
     chai.request(server)
     .put('/users/'+res.body.data.username+'/?token='+res.body.token+
       '&newusername=Best&role=User')
     .end(function(err, res) {
-      res.should.have.status(409);
+        res.should.have.status(409);
       res.should.be.json;
       res.body.should.be.a('object');
       res.body.should.have.property('error');
