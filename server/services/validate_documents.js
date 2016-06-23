@@ -72,14 +72,14 @@ module.exports = (function (){
 
   var getSkip = function (req) {
     if(req.query.skip){
-      return parseInt(req.query.skip);
+      return parseInt(req.query.skip, 10);
     }
 
     return 0;
   };
   var getLimit = function (req) {
     if(req.query.limit) {
-      return parseInt(req.query.limit);
+      return parseInt(req.query.limit, 10);
     }
 
     return 0;
