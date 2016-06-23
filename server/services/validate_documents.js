@@ -72,7 +72,7 @@ module.exports = (function (){
 
   var getSkip = function (req) {
     if(req.query.skip){
-      return parseInt(req.query.skip, 10);
+      return req.query.skip;
     }
 
     return 0;
