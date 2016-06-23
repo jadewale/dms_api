@@ -27,7 +27,7 @@
 
       var getUser = function (req, res, data) {
         if(!data.username){
-          data = {'username' : req.params.id};
+          data = {'_id': req.params.id};
         }
         Users.findOne(data, function (err, user) {
            helper.checkUser(err, user, req, res, jwt, app);
