@@ -72,7 +72,6 @@
     "yui": false,
     "predef": [
       "it",
-      "expect",
       "describe",
       "process",
       "require",

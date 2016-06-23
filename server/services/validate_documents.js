@@ -70,15 +70,19 @@ module.exports = (function (){
     }
   };
 
-  var getLimit = function (req) {
-    if(req.query.limit && req.query.skip) {
-      return {'skip' : req.query.skip, 'limit' : req.query.limit};
-    }
-    if(req.query.limit) {
-      return {'limit' : req.query.limit};
+  var getSkip = function (req) {
+    if(req.query.skip){
+      return parseInt(req.query.skip);
     }
 
-    return {'limit' : 0};
+    return 0;
+  };
+  var getLimit = function (req) {
+    if(req.query.limit) {
+      return parseInt(req.query.limit);
+    }
+
+    return 0;
   };
 
   function validData(data){
@@ -97,7 +101,8 @@ module.exports = (function (){
     validDocId : validDocId,
     getQueryDocs : getQueryDocs,
     getLimit : getLimit,
-    roleUpdate : roleUpdate
+    roleUpdate : roleUpdate,
+    getSkip: getSkip
   };
 
 })();
