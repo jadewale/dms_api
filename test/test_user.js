@@ -293,14 +293,14 @@ it('should fail because firstname is numbers /users/:id/ ', function(done) {
   });
   });
 
-it('should fail because lastname is empty /users/:id/ ', function(done) {
+it('should fail because lastname is numbers /users/:id/ ', function(done) {
      chai.request(server)
     .post('/users/login/')
     .send({'username':'Best', 'password':'Test'})
     .end(function(err, res){
     chai.request(server)
     .put('/users/'+res.body.data.username+'/?token='+res.body.token+
-      '&lastName='+'  ')
+      '&lastName='+' 0849 ')
     .end(function(err, res) {
         res.should.have.status(409);
       res.should.be.json;
