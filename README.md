@@ -7,7 +7,7 @@ Document Management System is an application that helps users manage their docum
 
 Development
 -----------
-This application has been created using Nodejs environment and implementing [**Express**](http://expressjs.com/) as the routing framework and [**Mongoose**](http://mongoosejs.com/), an object modeling package, to interact with MongoDB.[**JWT tokens**](https://jwt.io/) have also been used to authenticate routes.
+This application is created using Nodejs environment. It implements [**Express**](http://expressjs.com/) as the routing framework and [**Mongoose**](http://mongoosejs.com/), an object modeling package, to interact with MongoDB.[**JWT tokens**](https://jwt.io/) have also been used to authenticate routes.
 
 Installation.
 -------------
@@ -42,106 +42,6 @@ Installation.
 
 ## Code Example
 
-**Create a new user**
-```
-POST - /users
-
-Post data
-{
-  username: 'username',
-  email: 'example@host.com'
-  lastname: 'lastname',
-  firstname: 'firstname',
-  password: 'password',
-  role: 'dummy role' // Role has to be created before assignation. user role is available by default
-}
-```
-
-**********
-
-**Login a user**
-```
-POST - /users
-
-Post data
-{
-  username: 'username',
-  password: 'password'
-}
-```
-
-**********
-
-**Create a new document**
-
-Documnent is created by an existing and authenticated user.
-
-```
-POST - /api/users
-
-Post data
-{
-  title: 'Documnent title',
-  content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut  enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-
-}
-```
-
-***********
-
-**Create a new role - Superadmin operation**
-
-Role is created by an Authorized and Authenticated user.
-
-```
-POST - /api/role
-
-Post data
-{
-  role: 'Trainer'
-}
-```
-
-**********
-
-## API Reference
-
-API endpoints currently supported.
-
-_*Users*_
-
-Request type | Endpoint | Action 
------------- | -------- | ------
-POST | /api/users | Create a new user
-GET | /api/users | Get all users
-GET | /api/users:id | Get a specific user
-PUT | /api/users/:id | Update user information
-DELETE | /api/users/:id | Remove a user from storage
-
-_*Documents*_
-
-Request type | Endpoint | Action 
------------- | -------- | ------ 
-POST | /api/documents | Create a new document
-GET | /api/documents | Retrieve all documents 
-GET | /api/documents/:id | Retrieve a specific document
-GET | /api/users/:id/documents | Retrieve all documents created by a user
-GET | /api/documents/q=Andela | Retrieve all documents that contains 'Andela'
-GET | /api/documents/q=Andela&limit=10 | Retrieve documents that contains 'Andela' in group of tens 
-GET | /api/documents/q=Andela&role=1 | Retrieve documents that contains 'Andela' with user access
-PUT | /api/documents/:id | Update a specific document
-DELETE | /api/documents/:id | Remove a specific document from storage
-
-
-_*Roles*_
-
-Request type | Endpoint | Action 
------------- | -------- | ------ 
-POST | /api/role | Create a new role 
-GET | /api/role | Retrieve all roles 
-PUT | /api/role/:id | Edit a role
-GET | /api/role/:id | Retrieve a role
-DELETE | /api/role/:id | Delete a role
 
 
 Testing.
