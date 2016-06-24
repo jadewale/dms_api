@@ -1,7 +1,8 @@
+(function() {
 'use strict';
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-var server = require('../server');
+var server = require('../../server');
 var should = chai.should();
 var faker =  require('faker');
 var token1 = '';
@@ -381,5 +382,7 @@ it('should log a user out /users/logout/ ',
      });
 
 });
+
+}());
 
 

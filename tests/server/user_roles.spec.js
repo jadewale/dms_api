@@ -1,7 +1,9 @@
+(function() {
+
 'use strict';
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-var server = require('../server');
+var server = require('../../server');
 var should = chai.should();
 var token2 = '';
 
@@ -118,3 +120,5 @@ describe('roles', function() {
     });
   }); */
 });
+
+}());

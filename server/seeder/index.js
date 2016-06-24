@@ -27,11 +27,10 @@
 
    Roles.remove({}, function (err, role) {
    });
-   User.remove({}, function (err, role) {
+   User.remove({}, function (err, rol) {
    });
-   Documents.remove({}, function (err, role) {
-   });
-   object.forEach(function (obj, index) {
+   Documents.remove({}, function (err, doc) {
+    object.forEach(function (obj, index) {
 
      var addRole = new Roles(obj);
      addRole.save(function (err, role) {
@@ -39,7 +38,6 @@
      });
 
    });
-
-
+   });
 
 }());

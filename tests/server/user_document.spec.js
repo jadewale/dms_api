@@ -1,7 +1,8 @@
+(function() {
 'use strict';
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-var server = require('../server');
+var server = require('../../server');
 var should = chai.should();
 var expect = chai.expect;
 var id = '';
@@ -572,3 +573,4 @@ it('should return all documents belonging to a user', function(done) {
   });
 });
   });
+}());
