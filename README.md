@@ -3,11 +3,11 @@
 [![Build Status](https://travis-ci.org/andela-jadewale/dms_api.svg?branch=develop)](https://travis-ci.org/andela-jadewale/dms_api)   [![Code Climate](https://codeclimate.com/github/andela-jadewale/dms_api/badges/gpa.svg)](https://codeclimate.com/github/andela-jadewale/dms_api)   [![Test Coverage](https://codeclimate.com/github/andela-jadewale/dms_api/badges/coverage.svg)](https://codeclimate.com/github/andela-jadewale/dms_api/coverage) 
 
 
-Document Management System is an application that helps users manage their documents in an organized way. A User can be able to upload a document, edit it and share it with other users. Aside from enabling users to properly document their work with regard to category, the application permits users to work collaboratively on documents.
+Document Management System is an application that helps users manage their documents. A User can upload a document, edit and share with other users.The application permits users to work collaboratively on documents.
 
 Development
 -----------
-This application has been created using Nodejs environment and implementing [**Express**](http://expressjs.com/) as the routing framework and [**Mongoose**](http://mongoosejs.com/), an object modeling package, to interact with MongoDB. Authentication has been implemented using [**Passport**](http://passportjs.org/). For this version, only local strategy has been used. [**JWT tokens**](https://jwt.io/) have also been used to authenticate routes.
+This application has been created using Nodejs environment and implementing [**Express**](http://expressjs.com/) as the routing framework and [**Mongoose**](http://mongoosejs.com/), an object modeling package, to interact with MongoDB.[**JWT tokens**](https://jwt.io/) have also been used to authenticate routes.
 
 Installation.
 -------------
@@ -22,7 +22,7 @@ Installation.
     This will install the required dependencies.
 5. Run
     ```
-    npm run seedData
+    npm run seed
 
     ```
     This will seed the database
@@ -44,7 +44,7 @@ Installation.
 
 **Create a new user**
 ```
-POST - /api/users
+POST - /users
 
 Post data
 {
@@ -61,7 +61,7 @@ Post data
 
 **Login a user**
 ```
-POST - /api/users
+POST - /users
 
 Post data
 {
