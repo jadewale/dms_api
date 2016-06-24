@@ -164,7 +164,7 @@ module.exports = (function () {
    * @return {Boolean} return true and false otherwise
    */
   function isEmail(data){
-    return (data) ? (/([\w+]+[\w+][@][\w+]+[.][\w]+)/.test(data)) ?
+    return (data) ? (/([a-z]+(.)[\w+]+[@][\w+]+[.][\w]+)/.test(data)) ?
       true : false : false;
   }
 

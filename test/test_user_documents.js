@@ -6,6 +6,8 @@ var should = chai.should();
 var expect = chai.expect;
 var id = '';
 var docId = '';
+var secondDoc = '';
+
 
 
 chai.use(chaiHttp);
@@ -16,7 +18,6 @@ describe('documents', function() {
     .post('/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res){
-    id = res.body.data._id;
     chai.request(server)
     .post('/documents/?token='+res.body.token)
     .send({'title':'Test', 'id' : res.body.data._id, 'content' :
@@ -396,6 +397,7 @@ it('should return all documents belonging to a user', function(done) {
       res.body.data.should.be.a('array');
       //console.log(res.body.data[0]._id);
       id = res.body.data[0]._id;
+      secondDoc = res.body.data[1]._id;
       expect(res.body.data.length).to.be.below(11);
       done();
     });
@@ -414,6 +416,23 @@ it('should return all documents belonging to a user', function(done) {
       res.should.have.status(200);
       res.should.be.json;
      expect(res.body.success.access).to.deep.equal(['Administrator','Guest']);
+      done();
+    });
+    });
+  });
+
+  it('should update document to add only Admin access', function (done) {
+    chai.request(server)
+    .post('/users/login')
+    .send({'username':'Tope', 'password':'Tope'})
+    .end(function(err, res){
+    chai.request(server)
+    .put('/documents/'+secondDoc+'/?token='+res.body.token)
+    .send({'role':['Administrator']})
+    .end(function(err, res){
+      res.should.have.status(200);
+      res.should.be.json;
+     expect(res.body.success.access).to.deep.equal(['Administrator']);
       done();
     });
     });
@@ -463,12 +482,30 @@ it('should return all documents belonging to a user', function(done) {
     .end(function(err, res){
       res.should.have.status(200);
       res.should.be.json;
-      //console.log(res);
+      expect(res.body.data.length).to.be.below(3);
       done();
     });
     });
   });
-   it('returns documents created on a particular date', function (done) {
+
+  it('returns documents accessed by Guest role', function (done) {
+     chai.request(server)
+    .post('/users/login')
+    .send({'username':'Tope', 'password':'Tope'})
+    .end(function(err, res){
+    chai.request(server)
+    .get('/documents/?token=' + res.body.token +
+      '&role=Guest&limit=10')
+    .end(function(err, res){
+      res.should.have.status(200);
+      res.should.be.json;
+      expect(res.body.data.length).to.be.below(2);
+      done();
+    });
+    });
+  });
+
+   it('returns documents created n 24 hours', function (done) {
     chai.request(server)
     .post('/users/login')
     .send({'username':'Tope', 'password':'Tope'})
@@ -479,9 +516,22 @@ it('should return all documents belonging to a user', function(done) {
     .end(function(err, res){
       res.should.have.status(200);
       res.should.be.json;
-      //console.log(res.body);
-      //console.log('test');
-     // console.log(res);
+      done();
+    });
+  });
+});
+
+    it('returns documents created on a particular date', function (done) {
+    chai.request(server)
+    .post('/users/login')
+    .send({'username':'Tope', 'password':'Tope'})
+    .end(function(err, res){
+    chai.request(server)
+    .get('/documents/?token=' + res.body.token +
+      '&date=' + new Date('2016-06-24T12:00:00') + '&skip=10&limit=10')
+    .end(function(err, res){
+      res.should.have.status(200);
+      res.should.be.json;
       done();
     });
   });

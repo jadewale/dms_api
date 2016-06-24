@@ -81,7 +81,8 @@
 
     var removeDoc = function (req, res) {
       validateDocs.validDocId(req.params.id) ?
-        Documents.findOneAndRemove({_id: req.params.id, ownerId : req.query.id},
+        Documents.findOneAndRemove({_id: req.params.id, ownerId:
+          req.decoded._doc._id},
           function(err, doc) {
             (err) ? docHelp.send409Error(res, err):
             docHelp.sendOkResponse(res, 201, {'data': doc+' removed'});

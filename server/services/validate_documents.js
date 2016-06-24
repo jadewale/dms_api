@@ -57,11 +57,16 @@ module.exports = (function (){
   };
 
   var getQueryDocs = function (req) {
-    if(req.query.date){
-      var date = new Date(req.query.date);
-      return {'createdAt': {'$gte': req.query.date, '$lt':
-       date.setDate(date.getDate() + 1)}};
+
+    if(req.query.date) {
+    var date = new Date(req.query.date);
+
+    return {'createdAt':
+              {'$gte': new Date(date.setDate(date.getDate() - 1)),
+              '$lt': req.query.date }
+    };
     }
+
     if(req.query.role) {
       return {'access' : req.query.role};
     }
@@ -70,16 +75,20 @@ module.exports = (function (){
     }
   };
 
+  function parseToNumber(num) {
+    return parseInt(num, 10);
+  }
+
   var getSkip = function (req) {
     if(req.query.skip){
-      return req.query.skip;
+      return parseToNumber(req.query.skip);
     }
 
     return 0;
   };
   var getLimit = function (req) {
     if(req.query.limit) {
-      return parseInt(req.query.limit, 10);
+      return parseToNumber(req.query.limit);
     }
 
     return 0;
