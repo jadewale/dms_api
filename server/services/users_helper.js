@@ -4,6 +4,16 @@ module.exports = (function () {
   var responsehelper  = require('./response_helper'),
     validateUser = require('./validate_users');
 
+  /**
+  * @param  {Object} Roles mongoose collection
+  * @param  {String} roles role to add to document
+  * @param  {Object} res instance of response
+  * @param  {Object} req instance of request
+  * @param  {Object} Documents mongoose collection to update
+  * @param  {Integer} index of role number
+  * updates access in documents
+  * @return {Void}
+  */
   var checkRole = function(err, role, req, res, jwt, Users, bcrypt, salt, app) {
     if(err) {
       send409Error(res, err);

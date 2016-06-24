@@ -23,7 +23,7 @@
     * @return {Void}
     */
     var createDoc = function (req, res) {
-      if(validateDocs.validDocCreation(req)) {
+      if (validateDocs.validDocCreation(req)) {
         var addDoc = new Documents(validateDocs.parseDoc(req));
           addDoc.save(function(err, doc) {
             (err) ? docHelp.send409Error(res, err):
@@ -110,8 +110,8 @@
     * @return {Void}
     */
     var updateDoc = function (req, res) {
-      if(validateDocs.validDocId(req.params.id)){
-        if(req.body.role){
+      if (validateDocs.validDocId(req.params.id)){
+        if (req.body.role) {
           updateRole(req, res);
           return;
         }

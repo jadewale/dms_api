@@ -50,7 +50,7 @@
       * @return {Void}
       */
       var getUser = function (req, res, data) {
-        if(!data.username){
+        if (!data.username) {
           data = {'_id': req.params.id};
         }
         Users.findOne(data, function (err, user) {
@@ -58,13 +58,25 @@
         });
       };
 
+      /**
+      * @param  {Object} req request instance
+      * @param  {Object} res response instance
+      * gets all users in the database
+      * @return {Void}
+      */
       var getAllUsers = function (req, res) {
         Users.find(function(err,users) {
           (err) ? helper.send409Manual(res):
-          helper.sendOkResponse(res, 200, users);
+            helper.sendOkResponse(res, 200, users);
         });
       };
 
+      /**
+      * @param  {Object} req request instance
+      * @param  {Object} res response instance
+      * updates a user
+      * @return {Void}
+      */
       var updateUser = function (req, res) {
         validateUser.validUpdateData(req) ?
           Users.findOneAndUpdate({username: req.params.id},
@@ -72,10 +84,16 @@
               runValidators: true},
             function(err, doc) {
               (err) ? helper.send409Error(res, err) :
-              helper.sendOkResponse(res, 200, {'data': doc});
+                helper.sendOkResponse(res, 200, {'data': doc});
           }): res.status(409).json({error: 'check manual for required params'});
       };
 
+      /**
+      * @param  {Object} req request instance
+      * @param  {Object} res response instance
+      * deletes a user from the database
+      * @return {Void}
+      */
       var deleteUser = function (req, res) {
         Users.findOneAndRemove({username : req.params.id},
           function(err, user) {
@@ -84,6 +102,12 @@
         });
       };
 
+      /**
+      * @param  {Object} req request instance
+      * @param  {Object} res response instance
+      * logs a user out by not returning a token to the response
+      * @return {Void}
+      */
       var logOut = function (req, res) {
         helper.sendOkResponse(res, 200, {'message': 'user logged out'});
       };

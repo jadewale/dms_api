@@ -5,7 +5,7 @@
    role = require('../model/role_model.json'),
    user = require('../model/user_model.json'),
    doc = require('../model/documents_model.json'),
-   object = [{'title': 'Administrator', 'id' : 1},
+   object = [{'title': 'Administrator', 'id': 1},
    {'title': 'User', 'id' : 2},
    {'title': 'Guest', 'id' : 3}];
 
@@ -15,6 +15,7 @@
       user : 'USER',
       pass : ''
   };
+
    var uri = 'mongodb://localhost:27017/DocumentManagementSystem';
     db.connect(uri,options);
     db.connection.on('connected', function () {
