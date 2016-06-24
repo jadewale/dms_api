@@ -39,8 +39,8 @@
     var getAllDocuments = function (req, res) {
       Documents.find(validateDocs.getQueryDocs(req))
       .sort({'createdAt': -1})
-      .skip(validateDocs.getSkip(req))
-      .limit(validateDocs.getLimit(req))
+      .skip(validateDocs.paginate(req))
+      .limit(validateDocs.paginate(req))
       .exec(function(err, documents){
         sendResponse(err, documents, res);
       });

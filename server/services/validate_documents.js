@@ -79,16 +79,12 @@ module.exports = (function (){
     return parseInt(num, 10);
   }
 
-  var getSkip = function (req) {
-    if(req.query.skip){
-      return parseToNumber(req.query.skip);
-    }
-
-    return 0;
-  };
-  var getLimit = function (req) {
+  var paginate = function (req) {
     if(req.query.limit) {
       return parseToNumber(req.query.limit);
+    }
+    if(req.query.skip) {
+      return parseToNumber(req.query.skip);
     }
 
     return 0;
@@ -109,9 +105,8 @@ module.exports = (function (){
     parseDocsUpdate : parseDocsUpdate,
     validDocId : validDocId,
     getQueryDocs : getQueryDocs,
-    getLimit : getLimit,
+    paginate : paginate,
     roleUpdate : roleUpdate,
-    getSkip: getSkip
   };
 
 })();
