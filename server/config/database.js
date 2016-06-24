@@ -1,3 +1,8 @@
+/*
+  handles database connection,
+  auto increment
+  and errors then exports them
+ */
 (function() {
   'use strict';
 
@@ -5,7 +10,7 @@
     config = require('./index'),
     autoIncrement = require('mongoose-auto-increment'),
 
-    //configure connection pool and set reconnect tries
+    // Configure connection pool and set reconnect tries
     options = {
       server : { poolSize : 5, reconnectTries : 5},
       user : config.dbUsername,
@@ -14,6 +19,8 @@
 
     var uri = config.url + config.dbPort + '/' + config.dbName;
     mongoose.connect(uri, options);
+
+    // Add auto increment to keep ID unique
     autoIncrement.initialize(mongoose);
 
     mongoose.connection.on('connected', function () {
@@ -21,8 +28,8 @@
     });
 
     // If the connection throws an error
-    mongoose.connection.on('error',function (err) {
-      console.log('Default connection error: ' + err);
+    mongoose.connection.on('error', function (err) {
+      console.log('Default connection error: ' +  err);
     });
 
     // When the connection is disconnected

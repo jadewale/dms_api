@@ -11,13 +11,13 @@
    * @return {void}
    */
   module.exports = function(app, Schema, db, jwt, bcrypt) {
-    //routes roles
+    // Routes roles
     require('./roles')(app, Schema, db, jwt);
 
-    //routes users
+    // Routes users
     require('./users')(app, Schema, db, jwt, bcrypt);
 
-    //routes documents
+    // Routes documents
     require('./documents')(app, Schema, db, jwt);
   };
 

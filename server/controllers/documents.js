@@ -1,15 +1,27 @@
 (function() {
   'use strict';
 
+  /**
+  * @param  {Object} app instance of express
+  * @param  {Object} Schema instance of mongoose Schema
+  * @param  {Object} db instance of mongoose
+  * @return {Object} functions to be called
+  */
   module.exports = (function(app, Schema, db) {
     var model = require('../model/documents_model.json'),
       validateDocs = require('../services/validate_documents'),
-      docSchema = new Schema(model).plugin(db.autoIncrement.plugin,'Document'),
+      docSchema = new Schema(model).plugin(db.autoIncrement.plugin, 'Document'),
       Roles = app.get('roleModel'),
       docHelp = require('../services/users_helper'),
       helper = require('../services/documents_helper'),
-      Documents = db.connection.model('Documents',docSchema);
+      Documents = db.connection.model('Documents', docSchema);
 
+    /**
+    * @param  {Object} req request instance
+    * @param  {Object} res response instance
+    * creates user documents and saves in database
+    * @return {Void}
+    */
     var createDoc = function (req, res) {
       if(validateDocs.validDocCreation(req)) {
         var addDoc = new Documents(validateDocs.parseDoc(req));
@@ -24,6 +36,12 @@
       }
     };
 
+    /**
+    * @param  {Object} req request instance
+    * @param  {Object} res response instance
+    * gets users documents and sends it in response
+    * @return {Void}
+    */
     var getDocument = function (req, res) {
       Documents.findOne({_id: req.params.id},
         function(err, documents) {
@@ -31,21 +49,40 @@
       });
     };
 
+    /**
+    * @param  {Object} err db err
+    * @param  {Object} documents db data
+    * @param  {Object} res response instance
+    * sends response to user
+    * @return {Void}
+    */
     function sendResponse(err, documents, res) {
        (err) ? docHelp.send409Manual(res):
           docHelp.sendOkResponse(res, 200, {'data': documents});
     }
 
+    /**
+    * @param  {Object} req request instance
+    * @param  {Object} res response instance
+    * gets documents with filters
+    * @return {Void}
+    */
     var getAllDocuments = function (req, res) {
       Documents.find(validateDocs.getQueryDocs(req))
       .sort({'createdAt': -1})
       .skip(validateDocs.paginate(req))
-      .limit(validateDocs.paginate(req))
+      .limit(validateDocs.paginate(req,'limit'))
       .exec(function(err, documents){
         sendResponse(err, documents, res);
       });
     };
 
+    /**
+    * @param  {Object} req request instance
+    * @param  {Object} res response instance
+    * gets documents belonging to a user
+    * @return {Void}
+    */
     var getUserDocument = function (req, res) {
       Documents.find({ownerId: req.params.id},
         function(err, documents) {
@@ -54,12 +91,24 @@
         });
     };
 
+    /**
+    * @param  {Object} req request instance
+    * @param  {Object} res response instance
+    * updates user roles
+    * @return {Void}
+    */
     var updateRole = function (req, res) {
       req.body.role.forEach(function(roles, index) {
         helper.updateRoles(Roles, roles, res, req, Documents, index);
       });
     };
 
+    /**
+    * @param  {Object} req request instance
+    * @param  {Object} res response instance
+    * updates user documents
+    * @return {Void}
+    */
     var updateDoc = function (req, res) {
       if(validateDocs.validDocId(req.params.id)){
         if(req.body.role){
@@ -79,6 +128,12 @@
       }
     };
 
+    /**
+    * @param  {Object} req request instance
+    * @param  {Object} res response instance
+    * deletes user document if request is from doc creator
+    * @return {Void}
+    */
     var removeDoc = function (req, res) {
       validateDocs.validDocId(req.params.id) ?
         Documents.findOneAndRemove({_id: req.params.id, ownerId:

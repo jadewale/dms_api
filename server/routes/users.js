@@ -10,38 +10,35 @@
 module.exports = function(app, Schema, db, jwt, bcrypt) {
   'use strict';
 
-  //user controller which takes references of the objects above
+  // User controller which takes references of the objects above
   var Users = require('../controllers/user')(app, Schema, db, jwt, bcrypt),
 
-    //authenticates users have token for routes
+    // Authenticates users have token for routes
     auth = require('../middleware/jstokensverification')(app, jwt);
 
-
-  //logs users in
+  // Logs users in
   app.route('/users/login')
     .post(Users.logIn);
 
-  //creates a user account
+  // Creates a user account
   app.route('/users/')
     .post(Users.createUser);
 
-  //authenticates all users route below
+  // Authenticates all users route below
   app.use('/users/', auth.apiRoutes);
 
-  //logs user out
+  // Logs user out
   app.route('/users/logout')
     .post(Users.logOut);
 
-  //gets all users
+  // Gets all users
   app.route('/users/')
     .get(Users.getAllUsers);
 
-  //gets,update and deletes a user
+  // Gets,update and deletes a user
   app.route('/users/:id')
     .get(Users.getUser)
     .put(Users.updateUser)
     .delete(Users.deleteUser);
-
-
 
 };

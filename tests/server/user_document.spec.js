@@ -500,6 +500,7 @@ it('should return all documents belonging to a user', function(done) {
     .end(function(err, res){
       res.should.have.status(200);
       res.should.be.json;
+      console.log(res.body.data);
       expect(res.body.data.length).to.be.below(2);
       done();
     });
@@ -546,7 +547,7 @@ it('should return all documents belonging to a user', function(done) {
     .end(function(err, res){
     chai.request(server)
     .get('/documents/?token=' + res.body.token +
-      '&date=' + new Date('2016-06-24T12:00:00') + '&skip=5')
+      '&skip=5&date=' + new Date('2016-06-24T12:00:00') )
     .end(function(err, res){
       res.should.have.status(200);
       res.should.be.json;

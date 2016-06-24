@@ -1,5 +1,6 @@
 module.exports = function(app, jwt) {
   'use strict';
+
   var apiRoutes = app.get('express').Router();
     apiRoutes.use(function(req, res, next) {
     var token = req.body.token || req.query.token ||

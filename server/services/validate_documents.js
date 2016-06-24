@@ -79,11 +79,11 @@ module.exports = (function (){
     return parseInt(num, 10);
   }
 
-  var paginate = function (req) {
-    if(req.query.limit) {
+  var paginate = function (req, limit) {
+    if((limit) && req.query.limit) {
       return parseToNumber(req.query.limit);
     }
-    if(req.query.skip) {
+    if((req.query.skip) && !limit) {
       return parseToNumber(req.query.skip);
     }
 

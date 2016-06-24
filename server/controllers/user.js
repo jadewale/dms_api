@@ -1,6 +1,12 @@
 (function() {
   'use strict';
 
+  /**
+  * @param  {Object} app instance of express
+  * @param  {Object} Schema instance of mongoose Schema
+  * @param  {Object} db instance of mongoose
+  * @return {Object} functions to be called
+  */
   module.exports = (function(app, Schema, db, jwt, bcrypt) {
     var model = require('../model/user_model.json'),
       validateUser = require('../services/validate_users'),
@@ -10,6 +16,12 @@
       userSchema = new Schema(model).plugin(db.autoIncrement.plugin,'User'),
       Users = db.connection.model('User',userSchema);
 
+      /**
+      * @param  {Object} req request instance
+      * @param  {Object} res response instance
+      * creates users and saves in the database
+      * @return {Void}
+      */
       var createUser = function (req, res) {
         validateUser.validUserCreation(req) ?
            Roles.find({'title' : req.body.role},
@@ -19,12 +31,24 @@
         : res.status(409).json({error: 'check manual for required params'});
       };
 
+      /**
+      * @param  {Object} req request instance
+      * @param  {Object} res response instance
+      * logs users in and gives them token for authentication
+      * @return {Void}
+      */
       var logIn = function (req, res) {
         validateUser.validLogInData(req) ?
           getUser(req, res, validateUser.parseLogInData(req,
             bcrypt, salt)) :  helper.send409Manual(res);
       };
 
+      /**
+      * @param  {Object} req request instance
+      * @param  {Object} res response instance
+      * gets a user in the database
+      * @return {Void}
+      */
       var getUser = function (req, res, data) {
         if(!data.username){
           data = {'_id': req.params.id};

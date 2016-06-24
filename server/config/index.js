@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  //database config from .env file
+  // Database config from .env file
   var config = {
     url: process.env.DATABASE_URL,
     dbName: process.env.DATABASE_NAME,

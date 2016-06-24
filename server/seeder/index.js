@@ -25,10 +25,15 @@
     var User = db.model('User', new Schema(user));
     var Documents = db.model('Documents', new Schema(doc));
 
+   // Empty roles collection
    Roles.remove({}, function (err, role) {
    });
+
+   // Empty user collection
    User.remove({}, function (err, rol) {
    });
+
+   // Empty documents collection
    Documents.remove({}, function (err, doc) {
     object.forEach(function (obj, index) {
 
