@@ -90,10 +90,6 @@ module.exports = (function (){
     return 0;
   };
 
-  function validData(data){
-    return (data)? (/([\d+\W+])+/gi.test(data)) ? false: true : false;
-  }
-
   function validDocId(data){
     return (data)? (/([\d+])+/g.test(data)) ? true: false : false;
   }
@@ -101,7 +97,6 @@ module.exports = (function (){
   return {
     validDocCreation : validDocCreation,
     parseDoc : parseDoc,
-    validData : validData,
     parseDocsUpdate : parseDocsUpdate,
     validDocId : validDocId,
     getQueryDocs : getQueryDocs,

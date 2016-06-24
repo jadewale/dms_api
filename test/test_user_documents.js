@@ -521,7 +521,7 @@ it('should return all documents belonging to a user', function(done) {
   });
 });
 
-    it('returns documents created on a particular date', function (done) {
+    it('returns documents created on a particular date skipping 10', function (done) {
     chai.request(server)
     .post('/users/login')
     .send({'username':'Tope', 'password':'Tope'})
@@ -529,6 +529,23 @@ it('should return all documents belonging to a user', function(done) {
     chai.request(server)
     .get('/documents/?token=' + res.body.token +
       '&date=' + new Date('2016-06-24T12:00:00') + '&skip=10&limit=10')
+    .end(function(err, res){
+      res.should.have.status(200);
+      res.should.be.json;
+      done();
+    });
+  });
+});
+
+     it('returns documents created on a particular date with offset 5',
+      function (done) {
+    chai.request(server)
+    .post('/users/login')
+    .send({'username':'Tope', 'password':'Tope'})
+    .end(function(err, res){
+    chai.request(server)
+    .get('/documents/?token=' + res.body.token +
+      '&date=' + new Date('2016-06-24T12:00:00') + '&skip=5')
     .end(function(err, res){
       res.should.have.status(200);
       res.should.be.json;
