@@ -123,26 +123,24 @@ module.exports = (function () {
    * @return {Object} return user database schema object for update
    */
   var pasreUpdateData = function (req) {
-    var objectBuilder  = {};
-    if(req.query.newusername){
+    var objectBuilder = {};
+    objectBuilder.name = req.decoded._doc.name;
+    if (req.query.newusername) {
       objectBuilder.username = req.query.newusername;
     }
-    if(req.query.firstName){
-      objectBuilder.name = {};
+    if (req.query.firstName) {
       objectBuilder.name.first = req.query.firstName;
     }
-    if(req.query.lastName){
-      (objectBuilder.name) ?
-        objectBuilder.name.last = req.query.lastName
-        : objectBuilder.name = { 'last': req.query.lastName};
+    if (req.query.lastName) {
+      objectBuilder.name.last = req.query.lastName;
     }
-    if(req.query.email){
+    if (req.query.email) {
       objectBuilder.email = req.query.email;
     }
-    if(req.query.password){
+    if (req.query.password) {
       objectBuilder.password = req.query.password;
     }
-    if(req.query.role){
+    if (req.query.role) {
       objectBuilder.role = req.query.role;
     }
 
@@ -169,12 +167,12 @@ module.exports = (function () {
   }
 
   return {
-    validUserCreation  : validUserCreation,
-    parseCreateData : parseCreateData,
-    validLogInData : validLogInData,
-    parseLogInData : parseLogInData,
-    validUpdateData : validUpdateData,
-    pasreUpdateData : pasreUpdateData
+    validUserCreation: validUserCreation,
+    parseCreateData: parseCreateData,
+    validLogInData: validLogInData,
+    parseLogInData: parseLogInData,
+    validUpdateData: validUpdateData,
+    pasreUpdateData: pasreUpdateData
   };
 
 })();

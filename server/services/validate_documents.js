@@ -1,13 +1,18 @@
-module.exports = (function (){
+module.exports = (function () {
   'use strict';
 
+  /**
+  * @param  {Object} req instance of request
+  * checks user sends valid date to create a document
+  * @return {Boolean} true if data is valid and false otherwise
+  */
   var validDocCreation = function (req){
     var valid = true,
       id = req.body.id,
       title = req.body.title,
       content = req.body.content;
 
-    if(!(validDocId(id))) {
+    if(!(inValidDocId(id))) {
       valid = false;
     }
     if(!title) {
@@ -20,6 +25,11 @@ module.exports = (function (){
     return valid;
   };
 
+  /**
+  * @param  {Object} req instance of request
+  * checks user sends valid date to update a document
+  * @return {Boolean} true if data is valid and false otherwise
+  */
   var parseDocsUpdate = function (req) {
     var title = req.body.title,
       content = req.body.content,
@@ -38,6 +48,12 @@ module.exports = (function (){
     return objectBuilder;
   };
 
+  /**
+  * @param  {Object} req instance of request
+  * checks user sends valid date to update access in a  document
+  * @return {Array} index 0 is query to update other contents
+  * while index 1 is the query to update access
+  */
   var roleUpdate = function (req) {
     var updates = [];
     updates[0] = parseDocsUpdate(req);
@@ -46,6 +62,11 @@ module.exports = (function (){
     return updates;
   };
 
+  /**
+  * @param  {Object} req instance of request
+  * model to create a document
+  * @return {Object} Document object to model in database
+  */
   var parseDoc = function (req) {
     return {
       'ownerId' : req.body.id,
@@ -56,6 +77,11 @@ module.exports = (function (){
     };
   };
 
+  /**
+  * @param  {Object} req instance of request
+  * build query to get documents via date or role
+  * @return {Object} query built
+  */
   var getQueryDocs = function (req) {
 
     if(req.query.date) {
@@ -75,10 +101,20 @@ module.exports = (function (){
     }
   };
 
+  /**
+  * @param  {Object} req instance of request
+  * converts number to integer and passes radix param
+  * @return {Object} query built
+  */
   function parseToNumber(num) {
     return parseInt(num, 10);
   }
 
+  /**
+  * @param  {Object} req instance of request
+  * @param  {String} limit a flag to determine what statement to run
+  * @return {Integer} the result of the limit or skip
+  */
   var paginate = function (req, limit) {
     if((limit) && req.query.limit) {
       return parseToNumber(req.query.limit);
@@ -90,15 +126,21 @@ module.exports = (function (){
     return 0;
   };
 
-  function validDocId(data){
+  /**
+  * @param  {String} data word to test
+  * checks that docId contains a number
+  * @return {Boolean} true if number is found and false otherwise
+  */
+  function inValidDocId(data){
     return (data)? (/([\d+])+/g.test(data)) ? true: false : false;
   }
 
+  // functions to be called
   return {
     validDocCreation : validDocCreation,
     parseDoc : parseDoc,
     parseDocsUpdate : parseDocsUpdate,
-    validDocId : validDocId,
+    validDocId : inValidDocId,
     getQueryDocs : getQueryDocs,
     paginate : paginate,
     roleUpdate : roleUpdate,
