@@ -11,11 +11,11 @@ chai.use(chaiHttp);
 describe('roles', function() {
   it('should create a role with unique title /roles/ POST', function(done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res) {
       chai.request(server)
-      .post('/roles/')
+      .post('/api/v1/roles/')
       .send({'title':'Test', 'token' : res.body.token})
       .end(function(err, res){
         res.should.have.status(201);
@@ -30,11 +30,11 @@ describe('roles', function() {
 
   it('should fail because role has numbers /roles/ POST', function(done) {
      chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res) {
       chai.request(server)
-      .post('/roles/')
+      .post('/api/v1/roles/')
       .send({'title':'12344', 'token' : res.body.token})
       .end(function(err, res){
         res.should.have.status(409);
@@ -49,11 +49,11 @@ describe('roles', function() {
 
   it('should fail because role has been created /roles/ POST', function (done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res){
       chai.request(server)
-      .post('/roles/?token='+res.body.token)
+      .post('/api/v1/roles/?token='+res.body.token)
       .send({'title':'Test'})
       .end(function(err, res){
         res.should.have.status(409);
@@ -65,11 +65,11 @@ describe('roles', function() {
 
   it('should returns all the roles in the system /roles/ GET', function (done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Tope', 'password':'Tope'})
     .end(function(err, res) {
       chai.request(server)
-      .get('/roles/?token='+res.body.token)
+      .get('/api/v1/roles/?token='+res.body.token)
       .end(function(err, res) {
         res.should.have.status(200);
         res.should.be.json;

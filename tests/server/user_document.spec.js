@@ -14,11 +14,11 @@ chai.use(chaiHttp);
 describe('documents', function() {
   it('should create a new document /documents/ POST', function(done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res){
       chai.request(server)
-      .post('/documents/?token='+res.body.token)
+      .post('/api/v1/documents/?token='+res.body.token)
       .send({'title':'Test', 'id' : res.body.data._id, 'content' :
         'This is javacsript'})
       .end(function(err, res){
@@ -37,12 +37,12 @@ describe('documents', function() {
 
   it('should create a new document /documents/ POST', function(done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res) {
       id = res.body.data._id;
       chai.request(server)
-      .post('/documents/?token='+res.body.token)
+      .post('/api/v1/documents/?token='+res.body.token)
       .send({'title':'Test mischief', 'id' : res.body.data._id, 'content' :
         'This is javacsript'})
       .end(function(err, res) {
@@ -61,12 +61,12 @@ describe('documents', function() {
 
   it('should create a new document /documents/ POST', function(done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res) {
       id = res.body.data._id;
       chai.request(server)
-      .post('/documents/?token='+res.body.token)
+      .post('/api/v1/documents/?token='+res.body.token)
       .send({'title':'Tester', 'id' : res.body.data._id, 'content' :
         'This is javacsript'})
       .end(function(err, res){
@@ -85,12 +85,12 @@ describe('documents', function() {
 
   it('should create a new document /documents/ POST', function(done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res){
       id = res.body.data._id;
       chai.request(server)
-      .post('/documents/?token='+res.body.token)
+      .post('/api/v1/documents/?token='+res.body.token)
       .send({'title':'Tested', 'id' : res.body.data._id, 'content' :
         'This is javacsript'})
       .end(function(err, res){
@@ -109,12 +109,12 @@ describe('documents', function() {
 
   it('should create a new document /documents/ POST', function(done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res){
       id = res.body.data._id;
       chai.request(server)
-      .post('/documents/?token='+res.body.token)
+      .post('/api/v1/documents/?token='+res.body.token)
       .send({'title':'Try me', 'id' : res.body.data._id, 'content' :
         'This is javacsript'})
       .end(function(err, res) {
@@ -133,12 +133,12 @@ describe('documents', function() {
 
   it('should create a new document /documents/ POST', function(done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res) {
       id = res.body.data._id;
       chai.request(server)
-      .post('/documents/?token='+res.body.token)
+      .post('/api/v1/documents/?token='+res.body.token)
       .send({'title':'who', 'id' : res.body.data._id, 'content' :
         'This is javacsript'})
       .end(function(err, res) {
@@ -157,12 +157,12 @@ describe('documents', function() {
 
   it('should create a new document /documents/ POST', function(done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res) {
       id = res.body.data._id;
       chai.request(server)
-      .post('/documents/?token='+res.body.token)
+      .post('/api/v1/documents/?token='+res.body.token)
       .send({'title':'Test in not ', 'id' : res.body.data._id, 'content' :
         'This is javacsript'})
       .end(function(err, res) {
@@ -181,12 +181,12 @@ describe('documents', function() {
 
   it('should create a new document /documents/ POST', function(done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res){
       id = res.body.data._id;
       chai.request(server)
-      .post('/documents/?token='+res.body.token)
+      .post('/api/v1/documents/?token='+res.body.token)
       .send({'title':'Javascript', 'id' : res.body.data._id, 'content' :
         'This is javacsript'})
       .end(function(err, res) {
@@ -205,12 +205,12 @@ describe('documents', function() {
 
   it('should create a new document /documents/ POST', function(done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res){
       id = res.body.data._id;
       chai.request(server)
-      .post('/documents/?token='+res.body.token)
+      .post('/api/v1/documents/?token='+res.body.token)
       .send({'title':'Test creation', 'id' : res.body.data._id, 'content' :
         'This is javacsript'})
       .end(function(err, res){
@@ -229,12 +229,12 @@ describe('documents', function() {
 
   it('should create a new document /documents/ POST', function(done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res) {
       id = res.body.data._id;
       chai.request(server)
-      .post('/documents/?token='+res.body.token)
+      .post('/api/v1/documents/?token='+res.body.token)
       .send({'title':'Test me now', 'id' : res.body.data._id, 'content' :
         'This is javacsript'})
       .end(function(err, res){
@@ -253,12 +253,12 @@ describe('documents', function() {
 
   it('should create a new document /documents/ POST', function(done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res) {
       id = res.body.data._id;
       chai.request(server)
-      .post('/documents/?token='+res.body.token)
+      .post('/api/v1/documents/?token='+res.body.token)
       .send({'title':'method is here', 'id' : res.body.data._id, 'content' :
         'This is javacsript'})
       .end(function(err, res) {
@@ -277,12 +277,12 @@ describe('documents', function() {
 
   it('should create a new document /documents/ POST', function(done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res) {
       id = res.body.data._id;
       chai.request(server)
-      .post('/documents/?token='+res.body.token)
+      .post('/api/v1/documents/?token='+res.body.token)
       .send({'title':'Adeb', 'id' : res.body.data._id, 'content' :
         'This is javacsript'})
       .end(function(err, res) {
@@ -301,12 +301,12 @@ describe('documents', function() {
 
   it('should create a new document /documents/ POST', function(done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res) {
       id = res.body.data._id;
       chai.request(server)
-      .post('/documents/?token='+res.body.token)
+      .post('/api/v1/documents/?token='+res.body.token)
       .send({'title':'Testing limits', 'id' : res.body.data._id, 'content' :
         'This is javacsript'})
       .end(function(err, res) {
@@ -325,11 +325,11 @@ describe('documents', function() {
 
   it('should fail in creating document /documents/ POST', function(done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res) {
       chai.request(server)
-      .post('/documents/?token='+res.body.token)
+      .post('/api/v1/documents/?token='+res.body.token)
       .send({'title':'', 'id' : res.body.data._id, 'content':
         'This is javacsript'})
       .end(function(err, res) {
@@ -345,11 +345,11 @@ describe('documents', function() {
 
   it('should return single document /documents/ GET', function(done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res) {
       chai.request(server)
-      .get('/documents/'+docId+'/?token='+res.body.token)
+      .get('/api/v1/documents/'+docId+'/?token='+res.body.token)
       .end(function(err, res) {
         res.should.have.status(200);
         res.should.be.json;
@@ -364,11 +364,11 @@ describe('documents', function() {
   it('should return documents belonging to a user /users/:id/documents GET ',
     function(done) {
       chai.request(server)
-      .post('/users/login')
+      .post('/api/v1/users/login')
       .send({'username':'Joliphizzle', 'password':'Jolaade'})
       .end(function(err, res) {
         chai.request(server)
-        .get('/users/'+id+'/documents/?token='+res.body.token)
+        .get('/api/v1/users/'+id+'/documents/?token='+res.body.token)
         .end(function(err, res) {
           res.should.have.status(200);
           res.should.be.json;
@@ -380,11 +380,11 @@ describe('documents', function() {
 
   it('should return documents with limit /documents/ GET', function (done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
       .end(function(err, res) {
       chai.request(server)
-      .get('/documents/?token='+res.body.token+'&limit='+'10')
+      .get('/api/v1/documents/?token='+res.body.token+'&limit='+'10')
       .end(function(err, res) {
         res.should.have.status(200);
         res.should.be.json;
@@ -401,11 +401,11 @@ describe('documents', function() {
 
   it('should update test document /documents/ PUT', function (done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Tope', 'password':'Tope'})
     .end(function(err, res) {
       chai.request(server)
-      .put('/documents/'+id+'/?token='+res.body.token)
+      .put('/api/v1/documents/'+id+'/?token='+res.body.token)
       .send({'role':['Administrator','Guest']})
       .end(function(err, res) {
         res.should.have.status(200);
@@ -419,11 +419,11 @@ describe('documents', function() {
   it('should update document to add only Admin access /documents/:id/ PUT',
    function (done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Tope', 'password':'Tope'})
     .end(function(err, res) {
       chai.request(server)
-      .put('/documents/'+secondDoc+'/?token='+res.body.token)
+      .put('/api/v1/documents/'+secondDoc+'/?token='+res.body.token)
       .send({'role':['Administrator']})
       .end(function(err, res) {
         res.should.have.status(200);
@@ -436,11 +436,11 @@ describe('documents', function() {
 
   it('should update test document /documents/:id/ PUT', function (done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Tope', 'password':'Tope'})
     .end(function(err, res) {
       chai.request(server)
-      .put('/documents/'+id+'/?token='+res.body.token)
+      .put('/api/v1/documents/'+id+'/?token='+res.body.token)
       .send({'content':'this is a very good update'})
       .end(function(err, res) {
         res.should.have.status(201);
@@ -454,11 +454,11 @@ describe('documents', function() {
   it('update should fail because of invalid doc id /documents/:id/ PUT',
     function (done) {
       chai.request(server)
-      .post('/users/login')
+      .post('/api/v1/users/login')
       .send({'username':'Tope', 'password':'Tope'})
       .end(function(err, res) {
       chai.request(server)
-      .put('/documents/jolaade/?token='+res.body.token)
+      .put('/api/v1/documents/jolaade/?token='+res.body.token)
       .send({'content':'this is a very good update'})
       .end(function(err, res) {
         res.should.have.status(409);
@@ -471,11 +471,11 @@ describe('documents', function() {
   it('returns documents accessed by defined role /documents/ GET',
     function (done) {
       chai.request(server)
-      .post('/users/login')
+      .post('/api/v1/users/login')
       .send({'username':'Tope', 'password':'Tope'})
       .end(function(err, res) {
         chai.request(server)
-        .get('/documents/?token=' + res.body.token +
+        .get('/api/v1/documents/?token=' + res.body.token +
           '&role=' + res.body.data.role + '&limit=10')
         .end(function(err, res) {
           res.should.have.status(200);
@@ -486,13 +486,14 @@ describe('documents', function() {
     });
   });
 
-  it('returns documents accessed by Guest role /documents/ GET', function (done) {
+  it('returns documents accessed by Guest role /documents/ GET',
+   function (done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Tope', 'password':'Tope'})
     .end(function(err, res) {
       chai.request(server)
-      .get('/documents/?token=' + res.body.token +
+      .get('/api/v1/documents/?token=' + res.body.token +
         '&role=Guest&limit=10')
       .end(function(err, res) {
         res.should.have.status(200);
@@ -505,11 +506,11 @@ describe('documents', function() {
 
   it('returns documents created in 24 hours /documents/ GET', function (done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Tope', 'password':'Tope'})
     .end(function(err, res) {
       chai.request(server)
-      .get('/documents/?token=' + res.body.token +
+      .get('/api/v1/documents/?token=' + res.body.token +
         '&date=' + new Date() + '&limit=10')
       .end(function(err, res) {
         res.should.have.status(200);
@@ -522,11 +523,11 @@ describe('documents', function() {
   it('returns documents created on a  date skipping 10 /documents/ GET',
     function (done) {
       chai.request(server)
-      .post('/users/login')
+      .post('/api/v1/users/login')
       .send({'username':'Tope', 'password':'Tope'})
       .end(function(err, res) {
       chai.request(server)
-      .get('/documents/?token=' + res.body.token +
+      .get('/api/v1/documents/?token=' + res.body.token +
         '&date=' + new Date('2016-06-24T12:00:00') + '&skip=10&limit=10')
       .end(function(err, res) {
         res.should.have.status(200);
@@ -539,11 +540,11 @@ describe('documents', function() {
   it('returns documents created on a particular date with offset 5',
     function (done) {
       chai.request(server)
-      .post('/users/login')
+      .post('/api/v1/users/login')
       .send({'username':'Tope', 'password':'Tope'})
       .end(function(err, res) {
       chai.request(server)
-      .get('/documents/?token=' + res.body.token +
+      .get('/api/v1/documents/?token=' + res.body.token +
         '&skip=5&date=' + new Date('2016-06-24T12:00:00'))
       .end(function(err, res) {
         res.should.have.status(200);
@@ -555,11 +556,11 @@ describe('documents', function() {
 
   it('should delete a document', function(done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res) {
       chai.request(server)
-      .delete('/documents/'+docId+'/?token='+res.body.token)
+      .delete('/api/v1/documents/'+docId+'/?token='+res.body.token)
       .send({'id':res.body.data._id})
       .end(function(err, res) {
         res.should.have.status(201);

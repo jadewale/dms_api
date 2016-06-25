@@ -17,26 +17,26 @@ module.exports = function(app, Schema, db, jwt, bcrypt) {
     auth = require('../middleware/jstokensverification')(app, jwt);
 
   // Logs users in
-  app.route('/users/login')
+  app.route('/api/v1/users/login')
     .post(Users.logIn);
 
   // Creates a user account
-  app.route('/users/')
+  app.route('/api/v1/users/')
     .post(Users.createUser);
 
   // Authenticates all users route below
-  app.use('/users/', auth.apiRoutes);
+  app.use('/api/v1/users/', auth.apiRoutes);
 
   // Logs user out
-  app.route('/users/logout')
+  app.route('/api/v1/users/logout')
     .post(Users.logOut);
 
   // Gets all users
-  app.route('/users/')
+  app.route('/api/v1/users/')
     .get(Users.getAllUsers);
 
   // Gets,update and deletes a user
-  app.route('/users/:id')
+  app.route('/api/v1/users/:id')
     .get(Users.getUser)
     .put(Users.updateUser)
     .delete(Users.deleteUser);

@@ -17,19 +17,19 @@ module.exports = function(app, Schema, db, jwt) {
     auth = require('../middleware/jstokensverification')(app, jwt);
 
   // Authenticates all documents route below
-  app.use('/documents/', auth.apiRoutes);
+  app.use('/api/v1/documents/', auth.apiRoutes);
 
   // Gets user documents
-  app.route('/users/:id/documents/')
+  app.route('/api/v1/users/:id/documents/')
     .get(Documents.getUserDocument);
 
   // Gets and creates documents
-  app.route('/documents/')
+  app.route('/api/v1/documents/')
     .get(Documents.getAllDocuments)
     .post(Documents.createDoc);
 
   // Gets, updates and deletes a document
-  app.route('/documents/:id')
+  app.route('/api/v1/documents/:id')
     .get(Documents.getDocument)
     .put(Documents.updateDoc)
     .delete(Documents.removeDoc);

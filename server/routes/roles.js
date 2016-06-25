@@ -17,10 +17,10 @@ module.exports = function(app, Schema, db, jwt) {
     auth = require('../middleware/jstokensverification')(app, jwt);
 
   // Authenticates all roles route below
-  app.use('/roles/', auth.apiRoutes);
+  app.use('/api/v1/roles/', auth.apiRoutes);
 
   // Gets roles and creates roles
-  app.route('/roles/')
+  app.route('/api/v1/roles/')
     .get(Roles.getRoles)
     .post(Roles.createRole);
 };

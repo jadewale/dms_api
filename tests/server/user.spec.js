@@ -18,7 +18,7 @@ var invalid = {
 chai.use(chaiHttp);
 describe('users', function() {
   it('should create a new user on /users/ POST', function(done) {
-    chai.request(server).post('/users/')
+    chai.request(server).post('/api/v1/users/')
     .send({'username':'Tope', 'password':'Tope',
       'firstName':'tope', 'lastName':'Fowotade',
       'email':'tope@yahoo.com','role':'Administrator'})
@@ -36,7 +36,7 @@ describe('users', function() {
 
   it('should create another user on /users/ POST', function(done) {
     chai.request(server)
-    .post('/users/')
+    .post('/api/v1/users/')
     .send({'username':'Test', 'password':'Test',
       'firstName':'test', 'lastName':'test',
       'email':'test@yahoo.com','role':'Administrator'})
@@ -55,7 +55,7 @@ describe('users', function() {
   it('should reject new user because of invalid data /users/ POST',
     function(done) {
       chai.request(server)
-        .post('/users/')
+        .post('/api/v1/users/')
         .send({'username':'009898', 'password':'Test',
           'firstName':'89898', 'lastName':'test',
           'email':'87t8t8','role':'Administrator'})
@@ -71,7 +71,7 @@ describe('users', function() {
 
   it('should reject user with incomplete names /users/ POST', function(done) {
   chai.request(server)
-    .post('/users/')
+    .post('/api/v1/users/')
     .send(invalid)
     .end(function(err, res){
       res.should.have.status(409);
@@ -84,7 +84,7 @@ describe('users', function() {
  it('should fail because visitor role is not defined on /users/ POST',
   function (done) {
     chai.request(server)
-    .post('/users/')
+    .post('/api/v1/users/')
     .send({'username':'Joliphizzle', 'password':'Jolaade',
       'firstName':'Jolaade', 'lastName':'Adewale',
       'email':'jbadewale@yahoo.com', 'role':'visitor'})
@@ -101,7 +101,7 @@ describe('users', function() {
   it('should add user to system with a defined role /users/ POST',
     function (done) {
       chai.request(server)
-      .post('/users/')
+      .post('/api/v1/users/')
       .send({'username':'Joliphizzle', 'password':'Jolaade',
         'firstName':'Jolaade', 'lastName':'Adewale',
         'email':'jbadewale@yahoo.com', 'role':'Guest'})
@@ -119,7 +119,7 @@ describe('users', function() {
 
   it('should fail because token not provided /users/ GET', function (done) {
     chai.request(server)
-    .get('/users/')
+    .get('/api/v1/users/')
     .end(function(err, res){
       res.should.have.status(403);
       res.should.be.json;
@@ -133,7 +133,7 @@ describe('users', function() {
 
   it('should log user in /users/login/ POST', function (done) {
     chai.request(server)
-    .post('/users/login')
+    .post('/api/v1/users/login')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res){
       res.should.have.status(200);
@@ -148,7 +148,7 @@ describe('users', function() {
   it('should return invalid username or password /users/login/ POST',
     function (done) {
       chai.request(server)
-      .post('/users/login')
+      .post('/api/v1/users/login')
       .send({'username':'Joliphizzle', 'password':'invalidpassword'})
       .end(function(err, res){
         res.should.have.status(200);
@@ -162,7 +162,7 @@ describe('users', function() {
 
   it('should return all users /users/ GET', function (done) {
     chai.request(server)
-    .get('/users/?token='+token1)
+    .get('/api/v1/users/?token='+token1)
     .end(function(err, res){
       res.should.have.status(200);
       res.should.be.json;
@@ -172,11 +172,11 @@ describe('users', function() {
   });
 
   it('should return user /users/:id/ GET', function(done) {
-    chai.request(server).post('/users/login/')
+    chai.request(server).post('/api/v1/users/login/')
     .send({'username':'Joliphizzle', 'password':'Jolaade'})
     .end(function(err, res) {
       chai.request(server)
-      .get('/users/'+res.body.data._id+'/?token='+res.body.token)
+      .get('/api/v1/users/'+res.body.data._id+'/?token='+res.body.token)
       .end(function(err, res) {
         res.should.have.status(200);
         res.should.be.json;
@@ -189,11 +189,11 @@ describe('users', function() {
   });
 
   it('should update a users email /users/:id/ PUT', function(done) {
-      chai.request(server).post('/users/login/')
+      chai.request(server).post('/api/v1/users/login/')
       .send({'username':'Joliphizzle', 'password':'Jolaade'})
       .end(function(err, res){
       chai.request(server)
-      .put('/users/'+res.body.data.username+'/?token='+res.body.token+
+      .put('/api/v1/users/'+res.body.data.username+'/?token='+res.body.token+
         '&email=jolly@yahoo.com')
       .end(function(err, res) {
         res.should.have.status(200);
@@ -208,11 +208,11 @@ describe('users', function() {
 
   it('should update a users username /users/:id/ PUT', function(done) {
       chai.request(server)
-      .post('/users/login/')
+      .post('/api/v1/users/login/')
       .send({'username':'Test', 'password':'Test'})
       .end(function(err, res){
       chai.request(server)
-      .put('/users/'+res.body.data.username+'/?token='+res.body.token+
+      .put('/api/v1/users/'+res.body.data.username+'/?token='+res.body.token+
         '&newusername=Best')
       .end(function(err, res) {
         res.should.have.status(200);
@@ -227,11 +227,11 @@ describe('users', function() {
 
   it('should fail because you updated role /users/:id/ PUT', function(done) {
       chai.request(server)
-      .post('/users/login/')
+      .post('/api/v1/users/login/')
       .send({'username':'Best', 'password':'Test'})
       .end(function(err, res){
       chai.request(server)
-      .put('/users/'+res.body.data.username+'/?token='+res.body.token+
+      .put('/api/v1/users/'+res.body.data.username+'/?token='+res.body.token+
         '&newusername=Best&role=User')
       .end(function(err, res) {
         res.should.have.status(409);
@@ -246,11 +246,11 @@ describe('users', function() {
 
   it('should fail because password is numbers /users/:id/ PUT', function(done) {
       chai.request(server)
-      .post('/users/login/')
+      .post('/api/v1/users/login/')
       .send({'username':'Best', 'password':'Test'})
       .end(function(err, res){
       chai.request(server)
-      .put('/users/'+res.body.data.username+'/?token='+res.body.token+
+      .put('/api/v1/users/'+res.body.data.username+'/?token='+res.body.token+
         '&password='+'849493939')
       .end(function(err, res) {
         res.should.have.status(409);
@@ -263,13 +263,13 @@ describe('users', function() {
     });
   });
 
-  it('should fail because firstname is numbers /users/:id/ PUT', function(done) {
+  it('should fail because name is numbers /users/:id/ PUT', function(done) {
       chai.request(server)
-      .post('/users/login/')
+      .post('/api/v1/users/login/')
       .send({'username':'Best', 'password':'Test'})
       .end(function(err, res){
       chai.request(server)
-      .put('/users/'+res.body.data.username+'/?token='+res.body.token+
+      .put('/api/v1/users/'+res.body.data.username+'/?token='+res.body.token+
         '&firstName='+'849493939')
       .end(function(err, res) {
         res.should.have.status(409);
@@ -284,11 +284,11 @@ describe('users', function() {
 
   it('should fail because lastname is numbers /users/:id/ PUT', function(done) {
       chai.request(server)
-      .post('/users/login/')
+      .post('/api/v1/users/login/')
       .send({'username':'Best', 'password':'Test'})
       .end(function(err, res) {
         chai.request(server)
-        .put('/users/'+res.body.data.username+'/?token='+res.body.token+
+        .put('/api/v1/users/'+res.body.data.username+'/?token='+res.body.token+
           '&lastName='+' 0849 ')
         .end(function(err, res) {
           res.should.have.status(409);
@@ -304,11 +304,11 @@ describe('users', function() {
   it('should fail on update due to invalid email a user /users/:id/ PUT',
     function(done) {
       chai.request(server)
-      .post('/users/login/')
+      .post('/api/v1/users/login/')
       .send({'username':'Joliphizzle', 'password':'Jolaade'})
       .end(function(err, res){
       chai.request(server)
-      .put('/users/'+res.body.data.username+'/?token='+res.body.token+
+      .put('/api/v1/users/'+res.body.data.username+'/?token='+res.body.token+
         '&email=jollyyahoo.com')
       .end(function(err, res) {
         res.should.have.status(409);
@@ -323,11 +323,11 @@ describe('users', function() {
 
   it('should delete user /users/:id/ DELETE', function(done) {
     chai.request(server)
-    .post('/users/login/')
+    .post('/api/v1/users/login/')
     .send({'username':'Best', 'password':'Test'})
     .end(function(err, res) {
     chai.request(server)
-    .delete('/users/'+res.body.data.username+'/?token='+res.body.token)
+    .delete('/api/v1/users/'+res.body.data.username+'/?token='+res.body.token)
     .end(function(err, res) {
       res.should.have.status(200);
       res.should.be.json;
@@ -341,18 +341,18 @@ describe('users', function() {
   it('should log a user out /users/logout/ POST',
    function(done) {
        chai.request(server)
-      .post('/users/login/')
+      .post('/api/v1/users/login/')
       .send({'username':'Joliphizzle', 'password':'Jolaade'})
       .end(function(err, res){
        chai.request(server)
-      .post('/users/logout/?token='+res.body.token)
+      .post('/api/v1/users/logout/?token='+res.body.token)
       .end(function(err, res) {
         res.should.have.status(200);
         res.should.be.json;
         res.body.should.have.property('message');
         res.body.message.should.equal('user logged out');
         chai.request(server)
-        .delete('/users/'+invalid.username+'/')
+        .delete('/api/v1/users/'+invalid.username+'/')
         .end(function(err, res) {
           res.should.have.status(403);
           res.should.be.json;
