@@ -83,7 +83,6 @@ module.exports = (function () {
   * @return {Object} query built
   */
   var getQueryDocs = function (req) {
-
     if(req.query.date) {
     var date = new Date(req.query.date);
 
