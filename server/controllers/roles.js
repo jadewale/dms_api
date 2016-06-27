@@ -10,7 +10,7 @@
   module.exports = (function(app, Schema, db) {
     var model = require('../model/role_model.json'),
       validateRole = require('../services/validate_roles'),
-      responsehelper  = require('../services/response_helper'),
+      responseHelper  = require('../services/response_helper'),
 
       // Set role schema to use auto increment in creating ID
       roleSchema = new Schema(model).plugin(db.autoIncrement.plugin, 'Role'),
@@ -28,16 +28,16 @@
         var addRole = new Roles(validateRole.parseData(req));
           addRole.save(function(err, role) {
             err ?
-              responsehelper.response(res, 409, {
+              responseHelper.response(res, 409, {
                 error: err.message || err.errors[0].message
               }):
-              responsehelper.response(res, 201, {
+              responseHelper.response(res, 201, {
                 status: role
               });
           });
       }
       else{
-        responsehelper.response(res, 409, {
+        responseHelper.response(res, 409, {
           error: 'check manual for required params'
         });
       }
@@ -52,7 +52,7 @@
     var getRoles = function (req, res) {
       Roles.find(function (err, roles) {
         if (err) {
-          responsehelper.response(res, 500, {
+          responseHelper.response(res, 500, {
             error: err.message || err.errors[0].message
           });
         }
