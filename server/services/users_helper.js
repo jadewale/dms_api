@@ -1,7 +1,7 @@
 module.exports = (function () {
   'use strict';
 
-  var responsehelper  = require('./response_helper'),
+  var responseHelper  = require('./response_helper'),
     validateUser = require('./validate_users');
 
   /**
@@ -27,7 +27,7 @@ module.exports = (function () {
       saveUser(addUser, res, jwt, app);
     }
     else{
-      responsehelper.response(res, 409, {'error': 'undefined role'});
+      responseHelper.response(res, 409, {'error': 'undefined role'});
     }
   };
 
@@ -58,7 +58,7 @@ module.exports = (function () {
   * @return {Void}
   */
   var send409Error = function(res, err) {
-    responsehelper.response(res, 409,
+    responseHelper.response(res, 409,
       {error: err.message || err.errors[0].message});
   };
 
@@ -70,7 +70,7 @@ module.exports = (function () {
   * @return {Void}
   */
   var sendOkResponse = function(res, num, data) {
-    responsehelper.response(res, num, data);
+    responseHelper.response(res, num, data);
   };
 
   /**
@@ -79,7 +79,7 @@ module.exports = (function () {
   * @return {Void}
   */
   var send409Manual = function(res) {
-    responsehelper.response(res, 409, {'error':
+    responseHelper.response(res, 409, {'error':
       'check manual for params'});
   };
 

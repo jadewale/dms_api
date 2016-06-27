@@ -1,7 +1,7 @@
 module.exports = (function () {
   'use strict';
 
-  var responsehelper  = require('./response_helper'),
+  var responseHelper  = require('./response_helper'),
     validateDoc = require('./validate_documents');
 
   /**
@@ -32,7 +32,7 @@ module.exports = (function () {
   * @return {Void}
   */
   function parseRole(err, role, res, req, Documents, roles, index) {
-    err ? responsehelper.response(res, 409, {'error': err.message})
+    err ? responseHelper.response(res, 409, {'error': err.message})
     : findDoc(Documents, req, res, roles, role, index);
   }
 
@@ -48,7 +48,7 @@ module.exports = (function () {
   */
   function findDoc(Documents, req, res, roles, role, index) {
     if(!role){
-      responsehelper.response(res, 409, { 'error': roles + 'does not extist'} );
+      responseHelper.response(res, 409, { 'error': roles + 'does not extist'} );
       return '';
     }
 
@@ -70,9 +70,9 @@ module.exports = (function () {
   * @return {Void}
   */
   function updateDoc(req, err, docs, res, index) {
-    err ? responsehelper.response(res, 409, err) :
+    err ? responseHelper.response(res, 409, err) :
     (req.body.role.length === (index + 1)) ?
-    responsehelper.response(res, 200, {'success' : docs}) : '';
+    responseHelper.response(res, 200, {'success' : docs}) : '';
   }
 
   // function to be called

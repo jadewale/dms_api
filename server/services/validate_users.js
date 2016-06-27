@@ -125,6 +125,7 @@ module.exports = (function () {
   var pasreUpdateData = function (req) {
     var objectBuilder = {};
     objectBuilder.name = req.decoded._doc.name;
+
     if (req.query.newusername) {
       objectBuilder.username = req.query.newusername;
     }

@@ -1,4 +1,5 @@
 'use strict';
+
 var env = process.env.NODE_ENV || 'development';
 if (env === 'development') {
   require('dotenv').config({silent: true});
