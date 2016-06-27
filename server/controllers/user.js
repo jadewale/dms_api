@@ -13,8 +13,8 @@
       helper = require('../services/users_helper'),
       salt = bcrypt.genSaltSync(10),
       Roles = app.get('roleModel'),
-      userSchema = new Schema(model).plugin(db.autoIncrement.plugin,'User'),
-      Users = db.connection.model('User',userSchema);
+      userSchema = new Schema(model).plugin(db.autoIncrement.plugin, 'User'),
+      Users = db.connection.model('User', userSchema);
 
     /**
     * @param  {Object} req request instance
