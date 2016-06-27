@@ -79,14 +79,25 @@
     */
     var updateUser = function (req, res) {
       validateUser.validUpdateData(req) ?
-        Users.findOneAndUpdate({username: req.params.id},
-          {$set:validateUser.pasreUpdateData(req)}, {new: true,
-            runValidators: true},
-          function(err, doc) {
-            (err) ? helper.send409Error(res, err) :
-              helper.sendOkResponse(res, 200, {'data': doc});
-        }): res.status(409).json({error: 'check manual for required params'});
+        findUser(req, res) : res.status(409)
+        .json({error: 'check manual for required params'});
     };
+
+    /**
+    * @param  {Object} req request instance
+    * @param  {Object} res response instance
+    * finds a user and updates
+    * @return {Void}
+    */
+    function findUser(req, res) {
+      Users.findOneAndUpdate({username: req.params.id},
+        {$set:validateUser.pasreUpdateData(req)}, {new: true,
+          runValidators: true},
+        function(err, doc) {
+          (err) ? helper.send409Error(res, err) :
+            helper.sendOkResponse(res, 200, {'data': doc});
+      });
+    }
 
     /**
     * @param  {Object} req request instance
