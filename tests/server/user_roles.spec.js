@@ -21,8 +21,8 @@ describe('roles', function() {
         res.should.have.status(201);
         res.should.be.json;
         res.body.should.be.a('object');
-        res.body.should.have.property('status');
-        res.body.status.title.should.equal('Test');
+        res.body.should.have.property('role');
+        res.body.role.title.should.equal('Test');
         done();
       });
     });

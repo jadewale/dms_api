@@ -19,16 +19,14 @@ chai.use(chaiHttp);
 describe('users', function() {
   it('should create a new user on /users/ POST', function(done) {
     chai.request(server).post('/api/v1/users/')
-    .send({'username':'Tope', 'password':'Tope',
-      'firstName':'tope', 'lastName':'Fowotade',
-      'email':'tope@yahoo.com','role':'Administrator'})
-    .end(function(err, res) {
+        .send({'username':'Tope', 'password':'Tope',
+          'firstName':'tope', 'lastName':'Fowotade',
+          'email':'tope@yahoo.com','role':'Administrator'})
+        .end(function(err, res) {
       res.should.have.status(201);
       res.should.be.json;
       res.body.should.be.a('object');
       res.body.should.have.property('message');
-      res.body.should.have.property('token');
-      token1 = res.body.token;
       res.body.message.should.equal('user created');
       done();
     });
@@ -45,8 +43,6 @@ describe('users', function() {
       res.should.be.json;
       res.body.should.be.a('object');
       res.body.should.have.property('message');
-      res.body.should.have.property('token');
-      token1 = res.body.token;
       res.body.message.should.equal('user created');
       done();
     });
@@ -110,8 +106,6 @@ describe('users', function() {
         res.should.be.json;
         res.body.should.be.a('object');
         res.body.should.have.property('message');
-        res.body.should.have.property('token');
-        token2 = res.body.token;
         res.body.message.should.equal('user created');
         done();
       });

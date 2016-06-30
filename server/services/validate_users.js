@@ -122,7 +122,7 @@ module.exports = (function () {
    * builds update data
    * @return {Object} return user database schema object for update
    */
-  var pasreUpdateData = function (req) {
+  var parseUpdateData = function (req) {
     var objectBuilder = {};
     objectBuilder.name = req.decoded._doc.name;
 
@@ -173,7 +173,7 @@ module.exports = (function () {
     validLogInData: validLogInData,
     parseLogInData: parseLogInData,
     validUpdateData: validUpdateData,
-    pasreUpdateData: pasreUpdateData
+    parseUpdateData: parseUpdateData
   };
 
 })();

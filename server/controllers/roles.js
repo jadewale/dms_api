@@ -1,6 +1,10 @@
 (function() {
   'use strict';
 
+   var model = require('../model/role_model.json'),
+      validateRole = require('../services/validate_roles'),
+      responseHelper  = require('../services/response_helper');
+
   /**
   * @param  {Object} app instance of express
   * @param  {Object} Schema instance of mongoose Schema
@@ -8,14 +12,9 @@
   * @return {Object} functions to be called
   */
   module.exports = (function(app, Schema, db) {
-    var model = require('../model/role_model.json'),
-      validateRole = require('../services/validate_roles'),
-      responseHelper  = require('../services/response_helper'),
-
-      // Set role schema to use auto increment in creating ID
-      roleSchema = new Schema(model).plugin(db.autoIncrement.plugin, 'Role'),
+    var roleSchema = new Schema(model).plugin(db.autoIncrement.plugin, 'Role'),
       Roles = db.connection.model('Role', roleSchema);
-      app.set('roleModel',Roles);
+      app.set('roleModel', Roles);
 
     /**
     * @param  {Object} req request instance
@@ -27,19 +26,12 @@
       if(validateRole.validRoleCreation(req)){
         var addRole = new Roles(validateRole.parseData(req));
           addRole.save(function(err, role) {
-            err ?
-              responseHelper.response(res, 409, {
-                error: err.message || err.errors[0].message
-              }):
-              responseHelper.response(res, 201, {
-                status: role
-              });
+            err ? responseHelper.errorRes(res, 409, err):
+              responseHelper.successRes(res, 201, role);
           });
       }
       else{
-        responseHelper.response(res, 409, {
-          error: 'check manual for required params'
-        });
+        responseHelper.errorRes(res, 409, 'default');
       }
     };
 
@@ -51,16 +43,8 @@
     */
     var getRoles = function (req, res) {
       Roles.find(function (err, roles) {
-        if (err) {
-          responseHelper.response(res, 500, {
-            error: err.message || err.errors[0].message
-          });
-        }
-        else{
-          res.status(200).json({
-            role : roles
-          });
-        }
+        err ? responseHelper.errorRes(res, 500, err):
+          responseHelper.successRes(res, 200, roles);
       });
     };
 

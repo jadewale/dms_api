@@ -1,6 +1,10 @@
 (function() {
   'use strict';
 
+  var model = require('../model/user_model.json'),
+    validateUser = require('../services/validate_users'),
+    helper = require('../services/users_helper');
+
   /**
   * @param  {Object} app instance of express
   * @param  {Object} Schema instance of mongoose Schema
@@ -8,10 +12,7 @@
   * @return {Object} functions to be called
   */
   module.exports = (function(app, Schema, db, jwt, bcrypt) {
-    var model = require('../model/user_model.json'),
-      validateUser = require('../services/validate_users'),
-      helper = require('../services/users_helper'),
-      salt = bcrypt.genSaltSync(10),
+    var salt = bcrypt.genSaltSync(10),
       Roles = app.get('roleModel'),
       userSchema = new Schema(model).plugin(db.autoIncrement.plugin, 'User'),
       Users = db.connection.model('User', userSchema);
@@ -26,7 +27,10 @@
       validateUser.validUserCreation(req) ?
          Roles.find({'title' : req.body.role},
           function(err, role) {
-            helper.check(err, role, req, res, jwt, Users, bcrypt, salt, app);
+            var helperObj = helper.parseParams(err,
+              role, req, res, Users, bcrypt, salt);
+
+            helper.check(helperObj);
          })
       : res.status(409).json({error: 'check manual for required params'});
     };
@@ -54,7 +58,9 @@
         data = {'_id': req.params.id};
       }
       Users.findOne(data, function (err, user) {
-         helper.checkUser(err, user, req, res, jwt, app);
+        var helperObj = helper.parseParams(err, '', req, res);
+
+        helper.checkUser(helperObj, user, jwt, app);
       });
     };
 
@@ -91,7 +97,7 @@
     */
     function findUser(req, res) {
       Users.findOneAndUpdate({username: req.params.id},
-        {$set:validateUser.pasreUpdateData(req)}, {new: true,
+        {$set:validateUser.parseUpdateData(req)}, {new: true,
           runValidators: true},
         function(err, doc) {
           (err) ? helper.send409Error(res, err) :

@@ -1,6 +1,11 @@
 (function() {
   'use strict';
 
+ var model = require('../model/documents_model.json'),
+    validateDocs = require('../services/validate_documents'),
+    docHelp = require('../services/users_helper'),
+    helper = require('../services/documents_helper');
+
   /**
   * @param  {Object} app instance of express
   * @param  {Object} Schema instance of mongoose Schema
@@ -8,12 +13,9 @@
   * @return {Object} functions to be called
   */
   module.exports = (function(app, Schema, db) {
-    var model = require('../model/documents_model.json'),
-      validateDocs = require('../services/validate_documents'),
-      docSchema = new Schema(model).plugin(db.autoIncrement.plugin, 'Document'),
-      Roles = app.get('roleModel'),
-      docHelp = require('../services/users_helper'),
-      helper = require('../services/documents_helper'),
+    var docSchema = new Schema(model).plugin(db.autoIncrement.plugin,
+      'Document'),
+      RolesCollection = app.get('roleModel'),
       Documents = db.connection.model('Documents', docSchema);
 
     /**
@@ -72,7 +74,7 @@
       .sort({'createdAt': -1})
       .skip(validateDocs.paginate(req))
       .limit(validateDocs.paginate(req,'limit'))
-      .exec(function(err, documents){
+      .exec(function(err, documents) {
         sendResponse(err, documents, res);
       });
     };
@@ -99,7 +101,9 @@
     */
     var updateRole = function (req, res) {
       req.body.role.forEach(function(roles, index) {
-        helper.updateRoles(Roles, roles, res, req, Documents, index);
+        var collections = helper.parseCollections(RolesCollection, Documents);
+        var conn = helper.parseConn(res, req);
+        helper.updateRoles(collections, roles, conn, index);
       });
     };
 
@@ -110,7 +114,7 @@
     * @return {Void}
     */
     var updateDoc = function (req, res) {
-      if (validateDocs.validDocId(req.params.id)){
+      if (validateDocs.validDocId(req.params.id)) {
         if (req.body.role) {
           updateRole(req, res);
           return;

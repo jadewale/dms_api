@@ -5,19 +5,33 @@ module.exports = (function () {
     validateDoc = require('./validate_documents');
 
   /**
-  * @param  {Object} Roles mongoose collection
+  * @param  {Object} mongoose collection
   * @param  {String} roles role to add to document
-  * @param  {Object} res instance of response
-  * @param  {Object} req instance of request
-  * @param  {Object} Documents mongoose collection to update
+  * @param  {conn} res and req instance
   * @param  {Integer} index of role number
   * updates access in documents
   * @return {Void}
   */
-  var updateRoles = function (Roles, roles, res, req, Documents, index) {
-    Roles.find({'title': roles}, function(err, role) {
-      parseRole(err, role, res, req, Documents, roles, index);
+  var updateRoles = function (Collections, roles, conn, index) {
+    var Roles = Collections.role;
+    var Doc = Collections.doc;
+    Roles.find({'title': roles}, function(err, data) {
+      parseRole(err, data, conn, Doc, roles, index);
     });
+  };
+
+  var parseCollections = function (roles, documents) {
+    return {
+      'role': roles,
+      'doc': documents
+    };
+  };
+
+  var parseConn = function (res, req) {
+    return {
+      'res': res,
+      'req': req
+    };
   };
 
   /**
@@ -31,9 +45,9 @@ module.exports = (function () {
   * finds document to update access
   * @return {Void}
   */
-  function parseRole(err, role, res, req, Documents, roles, index) {
-    err ? responseHelper.response(res, 409, {'error': err.message})
-    : findDoc(Documents, req, res, roles, role, index);
+  function parseRole(err, data, conn, Documents, roles, index) {
+    err ? responseHelper.response(conn.res, 409, {'error': err.message})
+    : findDoc(Documents, conn, roles, data, index);
   }
 
   /**
@@ -46,17 +60,18 @@ module.exports = (function () {
   * checks if role exist and updates if true else returns 409 error
   * @return {Void}
   */
-  function findDoc(Documents, req, res, roles, role, index) {
-    if(!role){
-      responseHelper.response(res, 409, { 'error': roles + 'does not extist'} );
+  function findDoc(Documents, conn, roles, data, index) {
+    if(!data){
+      responseHelper.response(conn.res, 409, {
+        'error': roles + 'does not extist'} );
       return '';
     }
 
-    var updates = validateDoc.roleUpdate(req);
-    Documents.findOneAndUpdate({'_id': req.params.id},
+    var updates = validateDoc.roleUpdate(conn.req);
+    Documents.findOneAndUpdate({'_id': conn.req.params.id},
      { $set: updates[0], $push: { 'access' : roles } },
      { new: true, runValidators: true }, function(err, docs) {
-      updateDoc(req, err, docs, res, index);
+      updateDoc(conn.req, err, docs, conn.res, index);
      });
   }
 
@@ -77,7 +92,9 @@ module.exports = (function () {
 
   // function to be called
   return {
-    updateRoles: updateRoles
+    updateRoles: updateRoles,
+    parseCollections: parseCollections,
+    parseConn: parseConn
   };
 
 })();
