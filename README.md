@@ -167,5 +167,5 @@ View Documents
 ![View](http://res.cloudinary.com/dd58mfinr/image/upload/v1528309817/Screen_Shot_2018-06-06_at_7.23.29_PM_hjhl3c.png)
 
 Delete Documents only if you have permissions
-![Delete] (http://res.cloudinary.com/dd58mfinr/image/upload/v1528309813/Screen_Shot_2018-06-06_at_7.25.14_PM_e6zss6.png)
+![Delete](http://res.cloudinary.com/dd58mfinr/image/upload/v1528309813/Screen_Shot_2018-06-06_at_7.25.14_PM_e6zss6.png)
  
